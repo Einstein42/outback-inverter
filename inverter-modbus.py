@@ -30,7 +30,7 @@ def main():
     # Setup connection, node server, and nodes
     poly = PolyglotConnector()
     # Override shortpoll and longpoll timers to 5/30, once per second is excessive in this nodeserver 
-    nserver = NestNodeServer(poly, 5, 30)
+    nserver = ModbusNodeServer(poly, 5, 30)
     poly.connect()
     poly.wait_for_config()
     poly.LOGGER.info("Modbus Interface version " + VERSION + " created. Initiating setup.")
