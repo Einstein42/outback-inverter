@@ -1,0 +1,18 @@
+{
+    "name": "Inverter Modbus",
+    "docs": "",
+    "type": "python",
+    "executable": "inverter-modbus.py",
+    "description": "Add Modbus control to the ISY994.",
+    "notice": "",
+    "credits": [
+        {
+            "title": "nest: A Python library for Nest",
+            "author": "James Milne (Einstein.42)",
+            "version": "0.1.1",
+            "date": "April 8th, 2016",
+            "source": "https://github.com/Einstein42/inverter-modbus",
+            "license": ""
+        }
+    ]
+}

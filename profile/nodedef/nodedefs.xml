@@ -1,0 +1,72 @@
+<nodeDefs>
+    <!-- Nest Control -->
+    <nodeDef id="nestcontrol" nls="nctl" nodeType="143">
+        <editors />
+        <sts />
+        <cmds>
+            <sends />
+            <accepts>
+			    <cmd id="DISCOVER" />
+		    </accepts>
+        </cmds>
+    </nodeDef>
+	<!-- Nest Thermostat -->
+    <nodeDef id="nestdevice" nls="ndev" nodeType="143">
+        <editors />
+        <sts>
+            <st id="ST" editor="nmode" />
+			<st id="GV1" editor="ntemp" />
+            <st id="GV2" editor="ntemp" />
+			<st id="GV3" editor="ntemp" />
+			<st id="GV4" editor="nstatus" />
+        </sts>
+        <cmds>
+            <sends />
+            <accepts>
+                <cmd id="TEMP">
+                    <p id="" editor="ntemp" optional="T" init="GV3" />
+                </cmd	>
+                <cmd id="MODE">
+                    <p id="" editor="nmode" optional="T" init="ST" />
+				</cmd>	
+            </accepts>
+        </cmds>
+    </nodeDef>
+	<!-- NODE DEF from 5.0 document http://wiki.universal-devices.com/index.php?title=V50_MAIN -->
+   <nodeDef id="nestthermostat" nodeType="143" nls="143" eventMap="I_STD">
+      <!-- sts optional="true" - indicates that some of these may not ever be used for the thermostat -->
+      <sts>
+         <st id="ST" editor="I_TEMP_DEG" />
+         <st id="CLISPH" editor="I_CLISPH_DEG" />
+         <st id="CLISPC" editor="I_CLISPC_DEG" />
+         <st id="CLIMD" editor="I_TSTAT_MODE" />
+         <st id="CLIFS" editor="I_TSTAT_FAN_MODE" />
+         <st id="CLIHUM" editor="I_TSTAT_HUM" />
+         <st id="CLIHCS" editor="I_TSTAT_HCS" />
+         <st id="GV2" editor="I_TEMP_DEG" />
+		 <st id="GV4" editor="nstatus" />		 
+      </sts>
+      <cmds>
+         <accepts>
+            <cmd id="CLISPH">
+               <p id="" editor="I_CLISPH_DEG" init="CLISPH" />
+            </cmd>
+            <cmd id="CLISPC">
+               <p id="" editor="I_CLISPC_DEG" init="CLISPC" />
+            </cmd>
+            <cmd id="CLIMD">
+               <p id="" editor="I_TSTAT_MODE" init="CLIMD" />
+            </cmd>
+            <cmd id="CLIFS">
+               <p id="" editor="I_TSTAT_FAN_MODE" init="CLIFS" />
+            </cmd>
+            <cmd id="BRT" />
+            <cmd id="DIM" />
+            <cmd id="BEEP">
+               <p id="" editor="I_BEEP_255" optional="T" />
+            </cmd>
+            <cmd id="QUERY" />
+         </accepts>
+      </cmds>
+  </nodeDef>
+</nodeDefs>
