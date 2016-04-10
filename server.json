@@ -7,7 +7,7 @@
     "notice": "",
     "credits": [
         {
-            "title": "nest: A Python library for Nest",
+            "title": "Inverter Modbus: A Python library for SunSpec",
             "author": "James Milne (Einstein.42)",
             "version": "0.1.1",
             "date": "April 8th, 2016",

@@ -14,7 +14,7 @@ def myfloat(value, prec=2):
 class ModbusController(Node):
     
     def __init__(self, *args, **kwargs):
-        super(Controller, self).__init__(*args, **kwargs)
+        super(ModbusController, self).__init__(*args, **kwargs)
     
     def _discover(self, **kwargs):
         self.LOGGER.info('Controller _discover')            

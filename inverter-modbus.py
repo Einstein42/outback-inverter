@@ -4,7 +4,7 @@
       milne.james@gmail.com"""
 
 from polyglot.nodeserver_api import SimpleNodeServer, PolyglotConnector
-from inverter-types import ModbusController
+from inverter_types import ModbusController
 
 VERSION = "0.1.1"
 
