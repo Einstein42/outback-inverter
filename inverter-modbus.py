@@ -16,7 +16,7 @@ class ModbusNodeServer(SimpleNodeServer):
     def setup(self):
         manifest = self.config.get('manifest',{})
         self.controller = ModbusController(self,'mbcontroller','Modbus Controller', True, manifest)
-        self.poly.LOGGER.info("FROM Poly ISYVER: " + self.poly.isyver)
+        self.poly.logger.info("FROM Poly ISYVER: " + self.poly.isyver)
         self.controller._discover()
         self.update_config()
         
@@ -33,9 +33,9 @@ def main():
     nserver = ModbusNodeServer(poly, 5, 30)
     poly.connect()
     poly.wait_for_config()
-    poly.LOGGER.info("Modbus Interface version " + VERSION + " created. Initiating setup.")
+    poly.logger.info("Modbus Interface version " + VERSION + " created. Initiating setup.")
     nserver.setup()
-    poly.LOGGER.info("Setup completed. Running Server.")
+    poly.logger.info("Setup completed. Running Server.")
     nserver.run()
     
 if __name__ == "__main__":
