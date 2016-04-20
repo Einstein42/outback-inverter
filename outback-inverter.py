@@ -9,13 +9,13 @@ from inverter_types import ModbusController
 VERSION = "0.1.1"
 
 
-class ModbusNodeServer(SimpleNodeServer):
+class OutbackNodeServer(SimpleNodeServer):
     controller = []
     mbnodes = []
 
     def setup(self):
         manifest = self.config.get('manifest',{})
-        self.controller = ModbusController(self,'mbcontroller','Modbus Controller', True, manifest)
+        self.controller = OutbackController(self,'obcontroller','Outback Controller', True, manifest)
         self.poly.logger.info("FROM Poly ISYVER: " + self.poly.isyver)
         self.controller._discover()
         self.update_config()
@@ -30,7 +30,7 @@ def main():
     # Setup connection, node server, and nodes
     poly = PolyglotConnector()
     # Override shortpoll and longpoll timers to 5/30, once per second is excessive in this nodeserver 
-    nserver = ModbusNodeServer(poly, 5, 30)
+    nserver = OutbackNodeServer(poly, 5, 30)
     poly.connect()
     poly.wait_for_config()
     poly.logger.info("Modbus Interface version " + VERSION + " created. Initiating setup.")

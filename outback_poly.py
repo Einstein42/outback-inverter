@@ -1,23 +1,17 @@
 #!/usr/bin/python
 
-import requests
 import sys
 import time
 import struct
 # Import all the SunSpec specific definitions for Outback devices
-from sunspec_defs import *
+from outback_defs import *
 
 from pyModbusTCP.client import ModbusClient
 
-# Put your SunSpec Device ID here. AXS Port
+# Put your Outback Device here. AXS Port IP address.
 DEVICEIP = '75.83.36.12'
 DEVICEPORT = '502'
-
 # Do not modify below this line.
-# Dynamic list of devices, contains a list of class objects 
-DEVICES=[]
-# Global Connection manager.
-C = None
 
 class SunSpecDevice:
     def __init__(self, id=0, name='', type=0, addr=0, offset=0):
@@ -85,6 +79,7 @@ def longHex(register):
         return '0x{0:08X}'.format(register[0] | register[1] << 16)
 
 def getDevices():
+    global DEPLOYMENTDEVICES
     nb = 2
     addr = ADDR_START
     device, offset = 0, 0
@@ -92,16 +87,16 @@ def getDevices():
         addr += (offset + 2)
         register = C.read_holding_registers(addr, nb)
         DEVICES.insert(device, SunSpecDevice(device, SUNSPEC_DEVICE_LOOKUP.get(register[0]), register[0], addr, register[1]))
+        DEPLOYMENTDEVICES.append(register[0])
         offset = register[1]
         if ((DEVICES[device].type == 65535) or (DEVICES[device].type == 0)): break
         device += 1
     DEVICES[0].addr -= 2
     print('SunSpec: %i devices were added'% (device+1))
         
-def getAllCommon():
+def getAll(devtype):
     for device in DEVICES:
-        print device.type
-        if device.type == 64120:
+        if device.type == devtype:
             i = 0
             for i in range(len(SUNSPEC_DEVICE_MAP[device.type])):
                 value = ''
@@ -165,13 +160,45 @@ def getAllCommon():
 
 def openConnection():
     global C
-    C = ModbusClient(host=DEVICEIP, port=DEVICEPORT, auto_open=True, auto_close=False)
+    C = ModbusClient()
+    C.host(DEVICEIP)
+    C.port(DEVICEPORT)
+    C.timeout(10)
+    if not C.is_open():
+        if not C.open():
+            print "Connection unsuccessful. Check IP or port settings"
+            return False
+    return True
 
+def determineSetup():
+    global DEPLOYMENTCONFIG
+    global DEPLOYMENTPHASE
+    global DEPLOYMENTTYPE
+    if SUNSPEC_INVERTER_SINGLE_DID in DEPLOYMENTDEVICES: DEPLOYMENTPHASE = 'Single'
+    elif SUNSPEC_INVERTER_SPLIT_DID in DEPLOYMENTDEVICES: DEPLOYMENTPHASE = 'Split'
+    elif SUNSPEC_INVERTER_3PHASE_DID in DEPLOYMENTDEVICES: DEPLOYMENTPHASE = 'Three'
+    if SUNSPEC_OUTBACK_FX_DID in DEPLOYMENTDEVICES:
+        DEPLOYMENTCONFIG = SUNSPEC_OUTBACK_FX_CONFIG_DID
+        DEPLOYMENTTYPE = 'FX'
+    elif (SUNSPEC_OUTBACK_GS_SPLIT_DID in DEVICES) or (SUNSPEC_OUTBACK_GS_SINGLE_DID in DEVICES):
+        DEPLOYMENTCONFIG = SUNSPEC_OUTBACK_GS_CONFIG_DID
+        DEPLOYMENTTYPE = 'GS'
+    else:
+        print "Neither GS nor FX deployments found... thats fun."
+    print str(DEPLOYMENTTYPE) + ' ' + str(DEPLOYMENTPHASE) + ' phase deployment found. Config register at : ' + str(DEPLOYMENTCONFIG)
+    if SUNSPEC_OUTBACK_FNDC_DID in DEPLOYMENTDEVICES:
+        global FNDC
+        global FNDCCONFIG
+        FNDC = True
+        FNDCCONFIG = SUNSPEC_OUTBACK_FNDC_CONFIG_DID
+        print "FLEXnet-DC Device Found. Config register at : " + str(FNDCCONFIG)
+    
 def main():
-    openConnection()
-    if (verifySunSpec()):
-        getDevices()
-        getAllCommon()
+    if (openConnection()):
+        if (verifySunSpec()):
+            getDevices()
+            determineSetup()
+            # getAll(1)
     C.close()
 
         

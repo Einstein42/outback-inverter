@@ -1,6 +1,18 @@
 """
-Statics defines for SunSpec
+Defines for outback-inverter
 """
+
+# Dynamic list of devices, contains a list of class objects 
+DEVICES = []
+DEPLOYMENTDEVICES = []
+DEPLOYMENTCONFIG = None
+DEPLOYMENTPHASE = None
+DEPLOYMENTTYPE = None
+FNDCCONFIG = None
+FNDC = False
+
+# Global Connection manager.
+C = None
 
 SUNSPECID = '0x53756E53'
 MAX_DEVICES= 28
