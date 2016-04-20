@@ -3,12 +3,14 @@ import sys
 import time
 import struct
 from outback_defs import *
+import outback_poly as ob
 from pyModbusTCP.client import ModbusClient
 
-class ModbusController(Node):
+class OutbackController(Node):
     
     def __init__(self, *args, **kwargs):
-        super(ModbusController, self).__init__(*args, **kwargs)
+        super(OutbackController, self).__init__(*args, **kwargs)
+        self._discover()
     
     def _discover(self, **kwargs):
         self.logger.info('Controller _discover start.')
@@ -18,7 +20,7 @@ class ModbusController(Node):
 
     _commands = {'DISCOVER': _discover}
    
-    node_def_id = 'mbcontroller'
+    node_def_id = 'obcontroller'
 
 class OutbackNode(Node):
 

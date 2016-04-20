@@ -2,7 +2,7 @@
     "name": "Inverter Modbus",
     "docs": "",
     "type": "python",
-    "executable": "inverter-modbus.py",
+    "executable": "outback-inverter.py",
     "description": "Add Modbus control to the ISY994.",
     "notice": "",
     "credits": [
