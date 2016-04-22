@@ -1,5 +1,5 @@
 {
-    "name": "Inverter Modbus",
+    "name": "Outback Inverter",
     "docs": "",
     "type": "python",
     "executable": "outback_inverter.py",
@@ -7,11 +7,11 @@
     "notice": "",
     "credits": [
         {
-            "title": "Inverter Modbus: A Python library for SunSpec",
+            "title": "Outback Inverter: A Python library for Outback SunSpec Devices",
             "author": "James Milne (Einstein.42)",
             "version": "0.1.1",
             "date": "April 8th, 2016",
-            "source": "https://github.com/Einstein42/inverter-modbus",
+            "source": "https://github.com/Einstein42/outback-inverter",
             "license": ""
         }
     ]

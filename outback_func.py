@@ -93,69 +93,84 @@ def getDevices():
         device += 1
     DEVICES[0].addr -= 2
     print('SunSpec: %i devices were added'% (device+1))
-        
+
+def checkRegister(register_type, register):
+    value = ''
+    if  register_type == 'string':
+        value = convertString(register)
+    elif register_type == 'int32':
+        value = convert32bit(register)
+        if value == '0xFFFFFFFF' or value == '0x00000000':
+            value = 'Not Implemented'
+    elif register_type == 'float':
+        value = convertFloat(register)
+    elif register_type == 'float2':
+        value = convertFloat2(register)
+    elif register_type == 'ipaddress':
+        value = convertIP(register)
+    elif register_type == 'hex4':
+        value = shortHex(register)
+        if value == '0xFFFF':
+            value = 'Not Implemented'
+    elif register_type == 'uhex4':
+        value = shortHex(register)
+        if value == '0xFFFF':
+            value = '-1'
+        elif value == '0xFFFE':
+            value = '-2'
+        elif value == '0xFFFD':
+            value = '-3'
+        elif value == '0xFFFC':
+            value = '-4'
+        elif value == '0xFFFB':
+            value = '-5'
+        elif value == '0xFFFA':
+            value = '-6'
+        elif value == '0xFFF9':
+            value = '-7'
+        elif value == '0xFFF8':
+            value = '-8'
+        elif value == '0x0000':
+            value = '0'
+    elif register_type == 'hex8':
+        value = longHex(register)
+        if value == '0xFFFFFFFF' or value == '0x00000000':
+            value = 'Not Implemented'
+    else:
+        if register[0] == 65535 or register[0] == 32768:
+            value = 'Not Implemented'
+        else:
+            if register_valType == 'ENUMERATED_U':
+                if register_name == 'I_Status':
+                    value = STATUS_MAP[register[0]]
+            if value == '':
+                value = register[0]
+    return value
+
+def getOne(devtype, regname):
+    for device in DEVICES:
+        if device.type == devtype:
+             for i in range(len(SUNSPEC_DEVICE_MAP[device.type])):
+                if SUNSPEC_DEVICE_MAP[device.type][i][7] == regname:
+                    address = device.addr + SUNSPEC_DEVICE_MAP[device.type][i][0] - 1
+                    register = C.read_holding_registers(address, SUNSPEC_DEVICE_MAP[device.type][i][1])
+                    register_type = SUNSPEC_DEVICE_MAP[device.type][i][2]
+                    register_valType = SUNSPEC_DEVICE_MAP[device.type][i][3]
+                    register_name = SUNSPEC_DEVICE_MAP[device.type][i][7]
+                    value = checkRegister(register_type, register)
+                    print(register_name + '(' + str(address) + '): ' + str(register_type) + ' : ' + str(value))
+                  
 def getAll(devtype):
     for device in DEVICES:
         if device.type == devtype:
             i = 0
             for i in range(len(SUNSPEC_DEVICE_MAP[device.type])):
-                value = ''
                 address = device.addr + SUNSPEC_DEVICE_MAP[device.type][i][0] - 1
                 register = C.read_holding_registers(address, SUNSPEC_DEVICE_MAP[device.type][i][1])
                 register_type = SUNSPEC_DEVICE_MAP[device.type][i][2]
                 register_valType = SUNSPEC_DEVICE_MAP[device.type][i][3]
                 register_name = SUNSPEC_DEVICE_MAP[device.type][i][7]
-                if  register_type == 'string':
-                    value = convertString(register)
-                elif register_type == 'int32':
-                    value = convert32bit(register)
-                    if value == '0xFFFFFFFF' or value == '0x00000000':
-                        value = 'Not Implemented'
-                elif register_type == 'float':
-                    value = convertFloat(register)
-                elif register_type == 'float2':
-                    value = convertFloat2(register)
-                elif register_type == 'ipaddress':
-                    value = convertIP(register)
-                elif register_type == 'hex4':
-                    value = shortHex(register)
-                    if value == '0xFFFF':
-                        value = 'Not Implemented'
-                elif register_type == 'uhex4':
-                    value = shortHex(register)
-                    if value == '0xFFFF':
-                        value = '-1'
-                    elif value == '0xFFFE':
-                        value = '-2'
-                    elif value == '0xFFFD':
-                        value = '-3'
-                    elif value == '0xFFFC':
-                        value = '-4'
-                    elif value == '0xFFFB':
-                        value = '-5'
-                    elif value == '0xFFFA':
-                        value = '-6'
-                    elif value == '0xFFF9':
-                        value = '-7'
-                    elif value == '0xFFF8':
-                        value = '-8'
-                    elif value == '0x0000':
-                        value = '0'
-                elif register_type == 'hex8':
-                    value = longHex(register)
-                    if value == '0xFFFFFFFF' or value == '0x00000000':
-                        value = 'Not Implemented'
-                else:
-                    if register[0] == 65535 or register[0] == 32768:
-                        value = 'Not Implemented'
-                    else:
-                        if register_valType == 'ENUMERATED_U':
-                            if register_name == 'I_Status':
-                                value = STATUS_MAP[register[0]]
-                                
-                        if value == '':
-                            value = register[0]
-                    
+                value = checkRegister(register_type, register)
                 print(register_name + '(' + str(address) + '): ' + str(register_type) + ' : ' + str(value))
 
 def openConnection():
@@ -198,7 +213,7 @@ def main():
         if (verifySunSpec()):
             getDevices()
             determineSetup()
-            # getAll(1)
+            getOne(1, 'C_SerialNumber')
     C.close()
 
         

@@ -4,20 +4,24 @@
       milne.james@gmail.com"""
 
 from polyglot.nodeserver_api import SimpleNodeServer, PolyglotConnector
-from inverter_types import ModbusController
+from outback_types import OutbackNode
 
 VERSION = "0.1.1"
 
 
 class OutbackNodeServer(SimpleNodeServer):
-    controller = []
-    mbnodes = []
+    controller = None
+    inverter_master = None
+    inverter_slaves = []
+    flexnet = None
 
     def setup(self):
         manifest = self.config.get('manifest',{})
-        self.controller = OutbackController(self,'obcontroller','Outback Controller', True, manifest)
-        self.poly.logger.info("FROM Poly ISYVER: " + self.poly.isyver)
-        self.controller._discover()
+        self.poly.logger.info("FROM Poly ISYVER: " + self.poly.isyver)        
+        self.controller = OutbackNode(self,'outbackaxs','Outback Control', True, manifest)
+        self.controller.addInverters(self.controller)
+        # Close active connection. We don't keep it open if we don't need it.
+        self.controller.closeConnection()
         self.update_config()
         
     def poll(self):
@@ -33,7 +37,7 @@ def main():
     nserver = OutbackNodeServer(poly, 5, 30)
     poly.connect()
     poly.wait_for_config()
-    poly.logger.info("Modbus Interface version " + VERSION + " created. Initiating setup.")
+    poly.logger.info("Outback Interface version " + VERSION + " created. Initiating setup.")
     nserver.setup()
     poly.logger.info("Setup completed. Running Server.")
     nserver.run()

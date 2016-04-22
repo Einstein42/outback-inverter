@@ -2,6 +2,9 @@
 Defines for outback-inverter
 """
 
+DEVICEIP = '75.83.36.12'
+DEVICEPORT = '502'
+
 # Dynamic list of devices, contains a list of class objects 
 DEVICES = []
 DEPLOYMENTDEVICES = []
@@ -925,7 +928,7 @@ SUNSPEC_DEVICE_MAP = {
                                 [ 10, 1, 'int16', 'NI_U', 'NI_SF', 1, 1, 'OB_Set_Inverter_Charger_Mode'],
                                 [ 11, 1, 'int16', 'NI_U', 'NI_SF', 0, 1, 'OB_Control_Status'],
                                 [ 12, 1, 'float', 'VOLTS_U', 'OB_DC_Voltage_SF', 1, 1, 'OB_Set_Sell_Voltage'],
-                                [ 13, 1, 'int16', 'AMPS_U', 'OB_AC_Current_SF', 1, 1, 'OB_Set_Sell_Radian_Inverter_Sell_Current_Limit'],
+                                [ 13, 1, 'int16', 'AMPS_U', 'OB_AC_Current_SF', 1, 1, 'OB_Set_Radian_Inverter_Sell_Current_Limit'],
                                 [ 14, 1, 'float', 'VOLTS_U', 'OB_DC_Voltage_SF', 1, 1, 'OB_Set_Absorb_Voltage'],
                                 [ 15, 1, 'float', 'HOURS_U', 'OB_Time_SF', 1, 1, 'OB_Set_Absorb_Time'],
                                 [ 16, 1, 'float', 'VOLTS_U', 'OB_DC_Voltage_SF', 1, 1, 'OB_Set_Float_Voltage'],

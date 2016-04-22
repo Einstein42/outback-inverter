@@ -1,18 +1,14 @@
-# Nest Controller
-ND-nestcontrol-NAME = Nest Controller
-ND-nestcontrol-ICON = Thermostat
-CMD-nctl-DISCOVER-NAME = Re-Discover Devices
-
-# Nest device
-ND-nestdevice-NAME = Nest Device
-ST-ndev-NAME = Nest Device
-ST-ndev-ST-NAME = Device Status
-ST-ndev-GV1-NAME = Inside Temp
-ST-ndev-GV2-NAME = Outside Temp
-ST-ndev-GV3-NAME = Target Temp
-ST-ndev-GV4-NAME = Online
-CMD-ndev-TEMP-NAME = Target Temp
-CMD-ndev-MODE-NAME = Mode
+# Outback Controller
+ND-outbackaxs-NAME = Outback Controller
+ND-outbackaxs-ICON = Electricity
+ST-obaxs-GV1-NAME = OutBack_Load_Grid_Transfer_Threshold
+ST-obaxs-GV2-NAME = OutBack_Temp_Batt
+ST-obaxs-GV3-NAME = OB_Set_Sell_Voltage
+ST-obaxs-GV4-NAME = OB_Set_Radian_Inverter_Sell_Current_Limit
+ST-obaxs-GV5-NAME = OB_Set_Inverter_Charger_Current_Limit
+ST-obaxs-GV6-NAME = OB_Set_Inverter_AC1_Current_Limit
+ST-obaxs-GV7-NAME = OB_Set_Inverter_AC2_Current_Limit
+CMD-ST-NAME = Query
 
 # Nest Thermostat (New)
 ND-nestthermostat-NAME = Thermostat
@@ -24,4 +20,27 @@ ST-143-GV2-NAME = Outside Temp
 ST-143-GV4-NAME = Online
 CMD-143-BRT-NAME = Setpoint Up
 CMD-143-DIM-NAME = Setpoint Down
-CMD-ST-NAME = Query
+
+
+ND-fxinverter-NAME = FX Inverter
+ND-fxinverter-ICON = EnergyMonitor
+ST-fxi-GV1-NAME = FX_Inverter_Output_Current
+ST-fxi-GV2-NAME = FX_Inverter_Charge_Current
+ST-fxi-GV3-NAME = FX_Inverter_Buy_Current
+ST-fxi-GV4-NAME = FX_Inverter_Sell_Current
+ST-fxi-GV5-NAME = FX_AC_Output_Voltage
+ST-fxi-GV6-NAME = FX_AC_Input_State
+IX_E_FX_AC-0 = AC Drop
+IX_E_FX_AC-1 = AC Use
+ST-fxi-GV7-NAME = FXconfig_AC_Input_Type
+IX_E_FX_GRID-0 = Grid
+IX_E_FX_GRID-1 = Gen
+IX_E_FX_GRID-2 = Grid Zero
+ST-fxi-GV8-NAME = FXconfig_Grid_AC_Input_Current_Limit
+ST-fxi-GV9-NAME = FXconfig_Gen_AC_Input_Current_Limit
+ST-fxi-GV10-NAME = FXconfig_Charger_AC_Input_Current_Limit
+ST-fxi-GV11-NAME = FXconfig_Charger_Operating_Mode
+IX_E_FX_STATUS-0 = Charger Off
+IX_E_FX_STATUS-1 = Charger Auto
+IX_E_FX_STATUS-2 = Charger On
+ST-fxi-GV12-NAME = FXconfig_Sell_Volts

@@ -9,6 +9,7 @@
         <range uom="17" min="50" max="100" prec="0" />
    </editor>
    <!-- Temperature -->
+   
    <editor id="I_TEMP_DEG">
       <range uom="14" min="-50" max="150" step="0.5" prec="1" />
    </editor>
@@ -58,9 +59,48 @@
    <editor id="I_TSTAT_HUM">
       <range uom="51" min="0" max="100" />
    </editor>
-   
    <!-- LEVEL -  Beep level 0-255 -->
    <editor id="I_BEEP_255">
       <range uom="100" subset="0-255" />
+   </editor>
+   
+   
+   <!-- Amps -->
+   <editor id="I_AMPS">
+	  <range uom="1" />
+   </editor>
+   <editor id="I_AMPS_FLOAT">
+	  <range uom="1" prec="1" />
+   </editor>
+   <!-- Volts -->
+   <editor id="I_VOLTS">
+	  <range uom="72" />
+   </editor>
+   <editor id="I_VOLTS_FLOAT">
+	  <range uom="72" prec="1" />
+   </editor>
+   <!-- kiloWatts -->
+   <editor id="I_KW">
+	  <range uom="30" />
+   </editor>
+   <editor id="I_KW_FLOAT">
+	  <range uom="30" prec="1" />
+   </editor>
+   <!-- Degrees Celcius -->
+   <editor id="I_TEMP_C">
+      <range uom="4" />
+   </editor>
+
+   <!-- Enumerated FXInverter AC Input State -->
+   <editor id="E_FX_AC">
+	  <range uom="25" subset="0,1" nls="IX_E_FX_AC" />
+   </editor>
+   <!-- Enumerated FXInverter AC Input Type -->
+   <editor id="E_FX_GRID">
+	  <range uom="25" subset="0,1,2" nls="IX_E_FX_GRID" />
+   </editor>
+   <!-- Enumerated FXInverter Charger Operating Mode -->
+   <editor id="E_FX_STATUS">
+	  <range uom="25" subset="0,1,2" nls="IX_E_FX_STATUS" />
    </editor>
 </editors>
