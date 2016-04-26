@@ -5,7 +5,196 @@ import struct
 from outback_defs import *
 from pyModbusTCP.client import ModbusClient
 
+def myfloat(value, prec=2):
+    """ round and return float """
+    return round(float(value), prec)
+
+class GSInverter(Node):
+
+    registers_needed = ['GS_Split_L1_Inverter_Output_Current', 'GS_Split_L1_Inverter_Charge_Current',
+                                    'GS_Split_L1_Inverter_Buy_Current', 'GS_Split_L1_Inverter_Sell_Current',
+                                    'GS_Split_L1_Grid_Input_AC_Voltage', 'GS_Split_L2_Inverter_Output_Current',
+                                    'GS_Split_L2_Inverter_Charge_Current','GS_Split_L2_Inverter_Buy_Current',
+                                    'GS_Split_L2_Inverter_Sell_Current', 'GS_Split_AC_Input_Selection',
+                                    'GS_Split_AC_Input_State', 'GSconfig_Grid_AC_Input_Current_Limit', 
+                                    'GSconfig_Gen_AC_Input_Current_Limit', 'GSconfig_Charger_AC_Input_Current_Limit', 
+                                    'GSconfig_Charger_Operating_Mode', 'GSconfig_Sell_Volts'
+                                    ]
+    
+    def __init__(self, parent, primary, address, device, name, manifest=None):
+        self.parent = parent
+        self.logger = self.parent.poly.logger
+        self.primary = primary
+        self.address = address
+        self.device = device
+        self.name = name
+        self.registers = {}
+        self.controller = self.parent.controller
+        self.logger.info('Getting GS Inverter Registers')
+        super(GSInverter, self).__init__(parent, address, self.name, primary, manifest)
+        if not self.getRegisters(self.device):
+            self.logging.error('Failed to get registers for %s', self.name)
+
+    def getRegisters(self, device):
+        for i, register in enumerate(self.registers_needed):
+            devtype = getRegisterDevType(register)
+            for dev in DEVICES:
+                if dev.type == devtype:
+                        if device.port == dev.port:
+                            self.registers[register] = getOne(self.logger, dev, register)
+            driver = 'GV' + str(i+1)
+            self.set_driver(driver, self.registers[register])
+
+        self.logger.info('%s', self.registers)
+        return True
+
+    def setRegister(self, **kwargs):
+        self.logger.info('kwargs: %s', kwargs)
+        register = kwargs.get('cmd')
+        regtype = getRegisterDevType(register)
+        value = kwargs.get('value')
+        val = int()
+        uom = kwargs.get('uom')
+        self.logger.info('setRegister: %s(%i) UOM: %s = %s', register, regtype, uom, value)
+        if (self.controller.openConnection()):  
+            for dev in DEVICES:
+                if dev.type == regtype:
+                    if uom == 25: val = int(value)
+                    elif uom == 30: val = int(value * 10)
+                    elif uom in [1, 72]: val = float(value * 10)
+                    else: val = value
+                    self.logger.info('Attempting setOne')
+                    if setOne(self.logger, dev, register, val):
+                        try:
+                            self.set_driver('GV' + str((self.registers_needed.index(register) + 1)), value)
+                        except ValueError as e:
+                            self.logger.info('No ST field for the register: %s', register)
+        self.controller.closeConnection()
+        return True
+
+    def query(self, **kwargs):
+        if (self.controller.openConnection()):  
+            self.getRegisters(self.device)
+        self.controller.closeConnection()
+        return True
+
+    _drivers = {
+                'GV1': [0, 1, int], 'GV2': [0, 1, int],
+                'GV3': [0, 1, int], 'GV4': [0, 1, int],
+                'GV5': [0, 72, int], 'GV6': [0, 1, int],
+                'GV7': [0, 1, int], 'GV8': [0, 1, float],
+                'GV9': [0, 1, int], 'GV10': [0, 25, int],
+                'GV11': [0, 25, int], 'GV12': [0, 1, float],
+                'GV13': [0, 1, float], 'GV14': [0, 1, float],
+                'GV15': [0, 25, int], 'GV16': [0, 72, float]
+                }
+
+    _commands = {'QUERY': query,
+                            'GSconfig_Grid_AC_Input_Current_Limit': setRegister,
+                            'GSconfig_Gen_AC_Input_Current_Limit': setRegister,
+                            'GSconfig_Charger_AC_Input_Current_Limit': setRegister,
+                            'GSconfig_Charger_Operating_Mode': setRegister,
+                            'GSconfig_Sell_Volts': setRegister
+                            }
+   
+    node_def_id = 'gsinverter'
+
+class GSSingleInverter(Node):
+
+    registers_needed = ['GS_Single_Inverter_Output_Current', 'GS_Single_Inverter_Charge_Current',
+                                    'GS_Single_Inverter_Buy_Current', 'GS_Single_Inverter_Sell_Current',
+                                    'GS_Single_Grid_Input_AC_Voltage', 'GS_Single_Inverter_Operating_mode',
+                                    'GS_Single_AC_Input_Selection', 'GS_Single_AC_Input_State',
+                                    'GSconfig_Grid_AC_Input_Current_Limit', 'GSconfig_Gen_AC_Input_Current_Limit',
+                                    'GSconfig_Charger_AC_Input_Current_Limit', 'GSconfig_Charger_Operating_Mode',
+                                    'GSconfig_Sell_Volts'
+                                    ]
+    
+    def __init__(self, parent, primary, address, device, name, manifest=None):
+        self.parent = parent
+        self.logger = self.parent.poly.logger
+        self.primary = primary
+        self.address = address
+        self.device = device
+        self.name = name
+        self.registers = {}
+        self.controller = self.parent.controller
+        self.logger.info('Getting GS Single Registers')
+        super(FXInverter, self).__init__(parent, address, self.name, primary, manifest)
+        if not self.getRegisters(self.device):
+            self.logging.error('Failed to get registers for %s', self.name)
+
+    def getRegisters(self, device):
+        for i, register in enumerate(self.registers_needed):
+            devtype = getRegisterDevType(register)
+            for dev in DEVICES:
+                if dev.type == devtype:
+                        if device.port == dev.port:
+                            self.registers[register] = getOne(self.logger, dev, register)
+            driver = 'GV' + str(i+1)
+            self.set_driver(driver, self.registers[register])
+
+        self.logger.info('%s', self.registers)
+        return True
+
+    def setRegister(self, **kwargs):
+        self.logger.info('kwargs: %s', kwargs)
+        register = kwargs.get('cmd')
+        regtype = getRegisterDevType(register)
+        value = kwargs.get('value')
+        val = int()
+        uom = kwargs.get('uom')
+        self.logger.info('setRegister: %s(%i) UOM: %s = %s', register, regtype, uom, value)
+        if (self.controller.openConnection()):  
+            for dev in DEVICES:
+                if dev.type == regtype:
+                    if uom == 25: val = int(value)
+                    elif uom == 30: val = int(value * 10)
+                    elif uom in [1, 72]: val = float(value * 10)
+                    else: val = value
+                    self.logger.info('Attempting setOne')
+                    if setOne(self.logger, dev, register, val):
+                        try:
+                            self.set_driver('GV' + str((self.registers_needed.index(register) + 1)), value)
+                        except ValueError as e:
+                            self.logger.info('No ST field for the register: %s', register)
+        self.controller.closeConnection()
+        return True
+
+    def query(self, **kwargs):
+        if (self.controller.openConnection()):  
+            self.getRegisters(self.device)
+        self.controller.closeConnection()
+        return True
+
+    _drivers = {
+                'GV1': [0, 1, int], 'GV2': [0, 1, int],
+                'GV3': [0, 1, int], 'GV4': [0, 1, int],
+                'GV5': [0, 72, int], 'GV6': [0, 25, int],
+                'GV7': [0, 25, int], 'GV8': [0, 25, int],
+                'GV9': [0, 1, float], 'GV10': [0, 1, float],
+                'GV11': [0, 1, float], 'GV12': [0, 25, int],
+                'GV13': [0, 72, float]}
+
+    _commands = {'QUERY': query,
+                            'GSconfig_Grid_AC_Input_Current_Limit': setRegister,
+                            'GSconfig_Gen_AC_Input_Current_Limit': setRegister,
+                            'GSconfig_Charger_AC_Input_Current_Limit': setRegister,
+                            'GSconfig_Charger_Operating_Mode': setRegister,
+                            'GSconfig_Sell_Volts': setRegister
+                            }
+   
+    node_def_id = 'gssinverter'
+    
 class FXInverter(Node):
+
+    registers_needed = ['FX_Inverter_Output_Current', 'FX_Inverter_Charge_Current',
+                                    'FX_Inverter_Buy_Current', 'FX_Inverter_Sell_Current',
+                                    'FX_AC_Output_Voltage', 'FX_AC_Input_State',
+                                    'FXconfig_AC_Input_Type', 'FXconfig_Grid_AC_Input_Current_Limit',
+                                    'FXconfig_Gen_AC_Input_Current_Limit', 'FXconfig_Charger_AC_Input_Current_Limit',
+                                    'FXconfig_Charger_Operating_Mode', 'FXconfig_Sell_Volts'
+                                    ]
     
     def __init__(self, parent, primary, address, device, name, manifest=None):
         self.parent = parent
@@ -22,26 +211,40 @@ class FXInverter(Node):
             self.logging.error('Failed to get registers for %s', self.name)
 
     def getRegisters(self, device):
-        registers_needed = ['FX_Inverter_Output_Current', 'FX_Inverter_Charge_Current',
-                                        'FX_Inverter_Buy_Current', 'FX_Inverter_Sell_Current',
-                                        'FX_AC_Output_Voltage', 'FX_AC_Input_State',
-                                        'FXconfig_AC_Input_Type', 'FXconfig_Grid_AC_Input_Current_Limit',
-                                        'FXconfig_Gen_AC_Input_Current_Limit', 'FXconfig_Charger_AC_Input_Current_Limit',
-                                        'FXconfig_Charger_Operating_Mode', 'FXconfig_Sell_Volts'
-                                        ]
-
-        for i, register in enumerate(registers_needed):
-            if register.split('_')[0] == 'FX':
-                for dev in DEVICES:
-                    if dev.type == 64113:
+        for i, register in enumerate(self.registers_needed):
+            devtype = getRegisterDevType(register)
+            for dev in DEVICES:
+                if dev.type == devtype:
                         if device.port == dev.port:
                             self.registers[register] = getOne(self.logger, dev, register)
-            else:
-                self.registers[register] = getOne(self.logger, device, register)
             driver = 'GV' + str(i+1)
             self.set_driver(driver, self.registers[register])
 
         self.logger.info('%s', self.registers)
+        return True
+
+    def setRegister(self, **kwargs):
+        self.logger.info('kwargs: %s', kwargs)
+        register = kwargs.get('cmd')
+        regtype = getRegisterDevType(register)
+        value = kwargs.get('value')
+        val = int()
+        uom = kwargs.get('uom')
+        self.logger.info('setRegister: %s(%i) UOM: %s = %s', register, regtype, uom, value)
+        if (self.controller.openConnection()):  
+            for dev in DEVICES:
+                if dev.type == regtype:
+                    if uom == 25: val = int(value)
+                    elif uom == 30: val = int(value * 10)
+                    elif uom in [1, 72]: val = float(value * 10)
+                    else: val = value
+                    self.logger.info('Attempting setOne')
+                    if setOne(self.logger, dev, register, val):
+                        try:
+                            self.set_driver('GV' + str((self.registers_needed.index(register) + 1)), value)
+                        except ValueError as e:
+                            self.logger.info('No ST field for the register: %s', register)
+        self.controller.closeConnection()
         return True
 
     def query(self, **kwargs):
@@ -58,12 +261,24 @@ class FXInverter(Node):
                 'GV9': [0, 1, float], 'GV10': [0, 1, float],
                 'GV11': [0, 25, int], 'GV12': [0, 72, float]}
 
-    _commands = {'QUERY': query}
+    _commands = {'QUERY': query,
+                            'FXconfig_AC_Input_Type': setRegister,
+                            'FXconfig_Grid_AC_Input_Current_Limit': setRegister,
+                            'FXconfig_Gen_AC_Input_Current_Limit': setRegister,
+                            'FXconfig_Charger_AC_Input_Current_Limit': setRegister,
+                            'FXconfig_Charger_Operating_Mode': setRegister,
+                            'FXconfig_Sell_Volts': setRegister
+                            }
    
     node_def_id = 'fxinverter'
 
 class OutbackNode(Node):
 
+    registers_needed = ['OutBack_Load_Grid_Transfer_Threshold', 'OutBack_Temp_Batt',
+                                    'OB_Set_Sell_Voltage', 'OB_Set_Radian_Inverter_Sell_Current_Limit',
+                                    'OB_Set_Inverter_Charger_Current_Limit', 'OB_Set_Inverter_AC1_Current_Limit',
+                                    'OB_Set_Inverter_AC2_Current_Limit'
+                                    ]
     master = None
     slaves = []
 
@@ -72,6 +287,7 @@ class OutbackNode(Node):
         self.address = address
         self.serial = None
         self.registers = {}
+        self.uom = {}
         # Define the local logger for ease of calling
         self.logger = self.parent.poly.logger
         if (self.openConnection()):        
@@ -99,23 +315,14 @@ class OutbackNode(Node):
                     self.logging.error('Failed to get registers for %s', self.name)
 
     def getRegisters(self):
-        registers_needed = ['OutBack_Load_Grid_Transfer_Threshold', 'OutBack_Temp_Batt',
-                                        'OB_Set_Sell_Voltage', 'OB_Set_Radian_Inverter_Sell_Current_Limit',
-                                        'OB_Set_Inverter_Charger_Current_Limit', 'OB_Set_Inverter_AC1_Current_Limit',
-                                        'OB_Set_Inverter_AC2_Current_Limit'
-                                        ]
-        for i, register in enumerate(registers_needed):
-            if register.split('_')[0] == 'OutBack':
-                for dev in DEVICES:
-                    if dev.type == 64110:
-                            self.registers[register] = getOne(self.logger, dev, register)
-            elif register.split('_')[0] == 'OB':
-                for dev in DEVICES:
-                    if dev.type == 64120:
+        for i, register in enumerate(self.registers_needed):
+            devtype = getRegisterDevType(register)
+            for dev in DEVICES:
+                if dev.type == devtype:
                         self.registers[register] = getOne(self.logger, dev, register)
             driver = 'GV' + str(i+1)
             if self.registers[register] == 'Not Implemented': self.registers[register] = 0
-            self.set_driver(driver, self.registers[register])
+            self.set_driver(driver, myfloat(self.registers[register]))
 
         self.logger.info('%s', self.registers)
         return True
@@ -151,10 +358,16 @@ class OutbackNode(Node):
                         if device.mode in [0,4,10,19]:
                             #self.logger.info('get_node: %s', self.parent.get_node[self.address])
                             name = DEPLOYMENTTYPE + ' Inverter - Master - Port ' + str(device.port)
-                            self.parent.master_inverter = GSInverter(self.parent, controller, address, device, name, manifest)
+                            if DEPLOYMENTPHASE == 'Single':
+                                self.parent.master_inverter = GSSingleInverter(self.parent, controller, address, device, name, manifest)
+                            else:
+                                self.parent.master_inverter = GSInverter(self.parent, controller, address, device, name, manifest)
                         else:
                             name = DEPLOYMENTTYPE + ' Inverter - Slave - Port ' + str(device.port)
-                            self.parent.inverter_slaves.append(GSInverter(self.parent, controller, address, device, name, manifest))
+                            if DEPLOYMENTPHASE == 'Single':
+                                self.parent.inverter_slaves.append(GSSingleInverter(self.parent, controller, address, device, name, manifest))
+                            else:
+                                self.parent.inverter_slaves.append(GSInverter(self.parent, controller, address, device, name, manifest))
                 elif device.type == 64119:
                     address = (DEPLOYMENTTYPE + '_flexnet_' + str(device.port)).lower()
                     lnode = self.parent.get_node(address)
@@ -268,6 +481,30 @@ class OutbackNode(Node):
     def closeConnection(self):
         C.close()
         
+    def setRegister(self, **kwargs):
+        self.logger.info('kwargs: %s', kwargs)
+        register = kwargs.get('cmd')
+        regtype = getRegisterDevType(register)
+        value = kwargs.get('value')
+        val = int()
+        uom = kwargs.get('uom')
+        self.logger.info('setRegister: %s(%i) UOM: %s = %s', register, regtype, uom, value)
+        if (self.openConnection()):  
+            for dev in DEVICES:
+                if dev.type == regtype:
+                    if uom == 25: val = int(value)
+                    elif uom == 30: val = int(value * 10)
+                    elif uom in [1, 72]: val = float(value * 10)
+                    else: val = value
+                    self.logger.info('Attempting setOne')
+                    if setOne(self.logger, dev, register, val):
+                        try:
+                            self.set_driver('GV' + str((self.registers_needed.index(register) + 1)), value)
+                        except ValueError as e:
+                            self.logger.info('No ST field for the register: %s', register)                      
+        self.closeConnection()
+        return True
+
     _drivers = {
                 'GV1': [0, 30, float], 'GV2': [0, 4, int],
                 'GV3': [0, 72, float], 'GV4': [0, 1, float],
@@ -275,7 +512,18 @@ class OutbackNode(Node):
                 'GV7': [0, 1, float]
                 }
 
-    _commands = {'QUERY': query}
+    _commands = {'QUERY': query,
+                            'OutBack_Load_Grid_Transfer_Threshold': setRegister,
+                            'OB_Inverter_AC_Drop_Use': setRegister,
+                            'OB_Set_Inverter_Mode': setRegister,
+                            'OB_Grid_Tie_Mode': setRegister,
+                            'OB_Set_Inverter_Charger_Mode': setRegister,
+                            'OB_Set_Sell_Voltage': setRegister,
+                            'OB_Set_Radian_Inverter_Sell_Current_Limit': setRegister,
+                            'OB_Set_Inverter_Charger_Current_Limit': setRegister,
+                            'OB_Set_Inverter_AC1_Current_Limit': setRegister,
+                            'OB_Set_Inverter_AC2_Current_Limit': setRegister
+                            }
                             
     node_def_id = 'outbackaxs'
     
@@ -375,6 +623,43 @@ def checkRegister(register, register_type, register_valType, register_name):
                 value = register[0]
     return value
 
+def getRegisterDevType(register):
+    type = None
+    regprefix = register.split('_')[0]
+    if regprefix == 'OutBack': type = 64110
+    elif regprefix == 'CC': type = 64111
+    elif regprefix == 'CCconfig': type = 64112
+    elif regprefix == 'GS': 
+        if register.split('_')[1] == 'Split': type = 64115
+        else: type = 64117
+    elif regprefix == 'GSconfig': type = 64116
+    elif regprefix == 'FX': type = 64113
+    elif regprefix == 'FXconfig': type = 64114
+    elif regprefix == 'FN': type = 64118
+    elif regprefix == 'FNconfig': type = 64119
+    elif regprefix == 'OB': type = 64120
+    elif regprefix == 'C': type = 1
+    elif regprefix == 'I': 
+        if DEPLOYMENTPHASE == 'Single': type = 101
+        elif DEPLOYMENTPHASE == 'Split': type = 102
+        else: type = 103
+    return type
+    
+def setOne(logger, device, regname, value):
+    try:
+         for i in range(len(SUNSPEC_DEVICE_MAP[device.type])):
+            if SUNSPEC_DEVICE_MAP[device.type][i][7] == regname:
+                address = device.addr + SUNSPEC_DEVICE_MAP[device.type][i][0] - 1
+                if C.write_single_register(address, value):
+                    logger.info('Wrote to register: ' + str(address) + ' Value: ' + str(value))
+                else:
+                    logger.error('Failed to write to register: ' + str(address) + ' Value: ' + str(value))
+                    return False
+                #logger.info(register_name + '(' + str(address) + '): ' + str(register_type) + ' : ' + str(value))
+                return True
+    except TypeError as e:
+        logger.error('getOne ERROR: %s', e)
+
 def getOne(logger, device, regname):
     try:
          for i in range(len(SUNSPEC_DEVICE_MAP[device.type])):
@@ -389,8 +674,8 @@ def getOne(logger, device, regname):
                 logger.info(register_name + '(' + str(address) + '): ' + str(register_type) + ' : ' + str(value))
                 return value
     except TypeError as e:
-        logger.error('ERROR: %s', e)
-                  
+        logger.error('getOne ERROR: %s', e)
+
 def getAll(logger, devtype, port):
     for device in DEVICES:
         if device.type == devtype:

@@ -1,90 +1,24 @@
 <editors>
-    <editor id="nstatus">
-        <range uom="2" subset="0,1" />
-    </editor>
-	<editor id="nmode">
-        <range uom="67" subset="0,1,2,3,13" />
-   </editor>
-   <editor id="ntemp">
-        <range uom="17" min="50" max="100" prec="0" />
-   </editor>
-   <!-- Temperature -->
-   
-   <editor id="I_TEMP_DEG">
-      <range uom="14" min="-50" max="150" step="0.5" prec="1" />
-   </editor>
-
-   <editor id="I_DELTA_DEG">
-      <range uom="14" min="0" max="50" step="0.5" prec="1" init="1" />
-   </editor>
-
-   <!-- CLISPC -  Cool Setpoint -->
-   <editor id="I_CLISPC_DEG">
-      <range uom="14" min="50" max="100" />
-   </editor>
-   <editor id="I_CLISPC_C">
-      <range uom="4" min="5" max="50" />
-   </editor>
-   <editor id="I_CLISPC_F">
-      <range uom="17" min="37" max="120" />
-   </editor>
-
-   <!-- CLISPH -  Heat Setpoint -->
-   <editor id="I_CLISPH_DEG">
-      <range uom="14" min="50" max="100" />
-   </editor>
-
-   <editor id="I_CLISPH_C">
-      <range uom="4" min="0" max="45" step="0.5" prec="1" />
-   </editor>
-   <editor id="I_CLISPH_F">
-      <range uom="17" min="32" max="1200" />
-      <range uom="4" min="-10" max="500" step="0.5" prec="1" />
-   </editor>
-
-   <!-- CLIMD  -  Thermostat Mode -->
-   <editor id="I_TSTAT_MODE">
-      <range uom="67" subset="0,1,2,3,13" />
-   </editor>
-
-   <!-- CLIFS  -  Thermostat Fan Mode -->
-   <editor id="I_TSTAT_FAN_MODE">
-      <range uom="99" subset="7,8" />
-   </editor>
-
-   <!-- CLIHCS -  Thermostat Heating/Cooling State -->
-   <editor id="I_TSTAT_HCS">
-      <range uom="66" subset="0-2" />
-   </editor>
-   <editor id="I_TSTAT_HUM">
-      <range uom="51" min="0" max="100" />
-   </editor>
-   <!-- LEVEL -  Beep level 0-255 -->
-   <editor id="I_BEEP_255">
-      <range uom="100" subset="0-255" />
-   </editor>
-   
-   
    <!-- Amps -->
    <editor id="I_AMPS">
-	  <range uom="1" />
+	  <range uom="1"  min="0" max="500" />
    </editor>
    <editor id="I_AMPS_FLOAT">
-	  <range uom="1" prec="1" />
+	  <range uom="1"  min="0" max="500" step="0.1" prec="1" />
    </editor>
    <!-- Volts -->
    <editor id="I_VOLTS">
-	  <range uom="72" />
+	  <range uom="72"  min="0" max="500" />
    </editor>
    <editor id="I_VOLTS_FLOAT">
-	  <range uom="72" prec="1" />
+	  <range uom="72"  min="0" max="500" step="0.1" prec="1" />
    </editor>
    <!-- kiloWatts -->
    <editor id="I_KW">
-	  <range uom="30" />
+	  <range uom="30"  min="0" max="500"/>
    </editor>
    <editor id="I_KW_FLOAT">
-	  <range uom="30" prec="1" />
+	  <range uom="30"  min="0" max="500" step="0.1" prec="1" />
    </editor>
    <!-- Degrees Celcius -->
    <editor id="I_TEMP_C">
@@ -103,4 +37,40 @@
    <editor id="E_FX_STATUS">
 	  <range uom="25" subset="0,1,2" nls="IX_E_FX_STATUS" />
    </editor>
+
+   <!-- Enumerated Outback System Inverter AC Drop Use-->
+   <editor id="E_OB_AC_DROP">
+	  <range uom="25" subset="1,2" nls="IX_E_OB_AC_DROP" />
+   </editor>
+   <!-- Enumerated Outback System Set Inverter Mode -->
+   <editor id="E_OB_SETMODE">
+	  <range uom="25" subset="1,2,3" nls="IX_E_OB_SETMODE" />
+   </editor>
+   <!-- Enumerated Outback System Grid Tie Mode -->
+   <editor id="E_OB_GRID_TIE">
+	  <range uom="25" subset="1,2" nls="IX_E_OB_GRID_TIE" />
+   </editor>
+   <!-- Enumerated Outback Set Inverter Charger Mode -->
+   <editor id="E_OB_CHARGE">
+	  <range uom="25" subset="1,2,3" nls="IX_E_OB_CHARGE" />
+   </editor>  
+
+   <!-- Enumerated GS Single Inverter Operating Mode -->
+   <editor id="E_GSS_OM">
+	  <range uom="25" subset="0-10,14" nls="IX_E_GSS_OM" />
+   </editor>
+ 
+   <!-- Enumerated GS Global Operating Mode -->
+   <editor id="E_GS_OM">
+	  <range uom="25" subset="0,1" nls="IX_E_GS_OM" />
+   </editor>
+   <!-- Enumerated GS Global Inverter Input Selection -->
+   <editor id="E_GS_GRID">
+	  <range uom="25" subset="0,1" nls="IX_E_GS_GRID" />
+   </editor>
+   <!-- Enumerated GS Global Inverter Input State -->
+   <editor id="E_GS_AC">
+	  <range uom="25" subset="0,1" nls="IX_E_GS_AC" />
+   </editor>
+ 
 </editors>

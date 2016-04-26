@@ -17,7 +17,7 @@ class OutbackNodeServer(SimpleNodeServer):
 
     def setup(self):
         manifest = self.config.get('manifest',{})
-        self.poly.logger.info("FROM Poly ISYVER: " + self.poly.isyver)        
+        self.poly.logger.info("FROM Poly ISYVER: %s", self.poly.isyver)        
         self.controller = OutbackNode(self,'outbackaxs','Outback Control', True, manifest)
         self.controller.addInverters(self.controller)
         # Close active connection. We don't keep it open if we don't need it.

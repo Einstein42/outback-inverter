@@ -1,3 +1,6 @@
+# Global for all the QUERY labels
+CMD-ST-NAME = Query
+
 # Outback Controller
 ND-outbackaxs-NAME = Outback Controller
 ND-outbackaxs-ICON = Electricity
@@ -8,20 +11,28 @@ ST-obaxs-GV4-NAME = OB_Set_Radian_Inverter_Sell_Current_Limit
 ST-obaxs-GV5-NAME = OB_Set_Inverter_Charger_Current_Limit
 ST-obaxs-GV6-NAME = OB_Set_Inverter_AC1_Current_Limit
 ST-obaxs-GV7-NAME = OB_Set_Inverter_AC2_Current_Limit
-CMD-ST-NAME = Query
+IX_E_OB_AC_DROP-1 = Use
+IX_E_OB_AC_DROP-2 = Drop
+IX_E_OB_SETMODE-1 = Off
+IX_E_OB_SETMODE-2 = Search
+IX_E_OB_SETMODE-3 = On
+IX_E_OB_GRID_TIE-1 = Enable
+IX_E_OB_GRID_TIE-2 = Disable
+IX_E_OB_CHARGE-1 = Off
+IX_E_OB_CHARGE-2 = Auto
+IX_E_OB_CHARGE-3 = On
+CMD-obaxs-OutBack_Load_Grid_Transfer_Threshold-NAME = OutBack_Load_Grid_Transfer_Threshold
+CMD-obaxs-OB_Inverter_AC_Drop_Use-NAME = OB_Inverter_AC_Drop_Use
+CMD-obaxs-OB_Set_Inverter_Mode-NAME = OB_Set_Inverter_Mode
+CMD-obaxs-OB_Grid_Tie_Mode-NAME = OB_Grid_Tie_Mode
+CMD-obaxs-OB_Set_Inverter_Charger_Mode-NAME = OB_Set_Inverter_Charger_Mode
+CMD-obaxs-OB_Set_Sell_Voltage-NAME = OB_Set_Sell_Voltage
+CMD-obaxs-OB_Set_Radian_Inverter_Sell_Current_Limit-NAME = OB_Set_Radian_Inverter_Sell_Current_Limit
+CMD-obaxs-OB_Set_Inverter_Charger_Current_Limit-NAME = OB_Set_Inverter_Charger_Current_Limit
+CMD-obaxs-OB_Set_Inverter_AC1_Current_Limit-NAME = OB_Set_Inverter_AC1_Current_Limit
+CMD-obaxs-OB_Set_Inverter_AC2_Current_Limit-NAME = OB_Set_Inverter_AC2_Current_Limit
 
-# Nest Thermostat (New)
-ND-nestthermostat-NAME = Thermostat
-ND-nestthermostat-ICON = Thermostat
-PGM-CMD-143-BRT-FMT = //${c} 1\u00B0/${c} ${v}/
-PGM-CMD-143-DIM-FMT = //${c} 1\u00B0/${c} ${v}/
-ST-143-ST-NAME = Temperature
-ST-143-GV2-NAME = Outside Temp
-ST-143-GV4-NAME = Online
-CMD-143-BRT-NAME = Setpoint Up
-CMD-143-DIM-NAME = Setpoint Down
-
-
+# FX Inverter
 ND-fxinverter-NAME = FX Inverter
 ND-fxinverter-ICON = EnergyMonitor
 ST-fxi-GV1-NAME = FX_Inverter_Output_Current
@@ -44,3 +55,76 @@ IX_E_FX_STATUS-0 = Charger Off
 IX_E_FX_STATUS-1 = Charger Auto
 IX_E_FX_STATUS-2 = Charger On
 ST-fxi-GV12-NAME = FXconfig_Sell_Volts
+CMD-fxi-FXconfig_AC_Input_Type-NAME = FXconfig_AC_Input_Type
+CMD-fxi-FXconfig_Grid_AC_Input_Current_Limit-NAME = FXconfig_Grid_AC_Input_Current_Limit
+CMD-fxi-FXconfig_Gen_AC_Input_Current_Limit-NAME = FXconfig_Gen_AC_Input_Current_Limit
+CMD-fxi-FXconfig_Charger_AC_Input_Current_Limit-NAME = FXconfig_Charger_AC_Input_Current_Limit
+CMD-fxi-FXconfig_Charger_Operating_Mode-NAME = FXconfig_Charger_Operating_Mode
+CMD-fxi-FXconfig_Sell_Volts-NAME = FXconfig_Sell_Volts
+
+#Global for GS Inverters
+IX_E_GS_OM-0 = All Inverter Charging Disabled
+IX_E_GS_OM-1 = Bulk and Float Charging Enabled
+IX_E_GS_AC-0 = AC Drop
+IX_E_GS_AC-1 = AC Use
+IX_E_GS_GRID0 = Grid
+IX_E_GS_GRID1 = Gen
+
+#GS Split Inverter
+ND-gsinverter-NAME = GS Inverter
+ND-fxinverter-ICON = EnergyMonitor
+ST-gsi-GV1 = GS_Split_L1_Inverter_Output_Current
+ST-gsi-GV2 = GS_Split_L1_Inverter_Charge_Current
+ST-gsi-GV3 = GS_Split_L1_Inverter_Buy_Current
+ST-gsi-GV4 = GS_Split_L1_Inverter_Sell_Current
+ST-gsi-GV5 = GS_Split_L1_Grid_Input_AC_Voltage
+ST-gsi-GV6 = GS_Split_L2_Inverter_Output_Current
+ST-gsi-GV7 = GS_Split_L2_Inverter_Charge_Current
+ST-gsi-GV8 = GS_Split_L2_Inverter_Buy_Current
+ST-gsi-GV9 = GS_Split_L2_Inverter_Sell_Current
+ST-gsi-GV10 = GS_Split_AC_Input_Selection
+ST-gsi-GV11 = GS_Split_AC_Input_State
+ST-gsi-GV12 = GSconfig_Grid_AC_Input_Current_Limit
+ST-gsi-GV13 = GSconfig_Gen_AC_Input_Current_Limit
+ST-gsi-GV14 = GSconfig_Charger_AC_Input_Current_Limit
+ST-gsi-GV15 = GSconfig_Charger_Operating_Mode
+ST-gsi-GV16 = GSconfig_Sell_Volts
+CMD-gsi-GSconfig_Grid_AC_Input_Current_Limit-NAME = GSconfig_Grid_AC_Input_Current_Limit
+CMD-gsi-GSconfig_Gen_AC_Input_Current_Limit-NAME = GSconfig_Gen_AC_Input_Current_Limit
+CMD-gsi-GSconfig_Charger_AC_Input_Current_Limit-NAME = GSconfig_Charger_AC_Input_Current_Limit
+CMD-gsi-GSconfig_Charger_Operating_Mode-NAME = GSconfig_Charger_Operating_Mode
+CMD-gsi-GSconfig_Sell_Volts-NAME = GSconfig_Sell_Volts
+
+#GS Single Inverter
+ND-gssinverter-NAME = GS Inverter
+ND-fxinverter-ICON = EnergyMonitor
+ST-gssi-GV1-NAME = GS_Single_Inverter_Output_Current
+ST-gssi-GV2-NAME = GS_Single_Inverter_Charge_Current
+ST-gssi-GV3-NAME = GS_Single_Inverter_Buy_Current
+ST-gssi-GV4-NAME = GS_Single_Inverter_Sell_Current
+ST-gssi-GV5-NAME = GS_Single_Grid_Input_AC_Voltage
+ST-gssi-GV6-NAME = GS_Single_Inverter_Operating_mode
+IX_E_GSS_OM-1 = Off
+IX_E_GSS_OM-1 = Searching
+IX_E_GSS_OM-2 = Inverting
+IX_E_GSS_OM-3 = Charging
+IX_E_GSS_OM-4 = Silent
+IX_E_GSS_OM-5 = Float
+IX_E_GSS_OM-6 = EQ
+IX_E_GSS_OM-7 = Charger Off
+IX_E_GSS_OM-8 = Support
+IX_E_GSS_OM-9 = Selling
+IX_E_GSS_OM-10 = Pass through
+IX_E_GSS_OM-14 = Offsetting
+ST-gssi-GV7-NAME = GS_Single_AC_Input_Selection
+ST-gssi-GV8-NAME = GS_Single_AC_Input_State
+ST-gssi-GV9-NAME = GSconfig_Grid_AC_Input_Current_Limit
+ST-gssi-GV10-NAME = GSconfig_Gen_AC_Input_Current_Limit
+ST-gssi-GV11-NAME = GSconfig_Charger_AC_Input_Current_Limit
+ST-gssi-GV12-NAME = GSconfig_Charger_Operating_Mode
+ST-gssi-GV13-NAME = GSconfig_Sell_Volts
+CMD-gssi-GSconfig_Grid_AC_Input_Current_Limit-NAME = GSconfig_Grid_AC_Input_Current_Limit
+CMD-gssi-GSconfig_Gen_AC_Input_Current_Limit-NAME = GSconfig_Gen_AC_Input_Current_Limit
+CMD-gssi-GSconfig_Charger_AC_Input_Current_Limit-NAME = GSconfig_Charger_AC_Input_Current_Limit
+CMD-gssi-GSconfig_Charger_Operating_Mode-NAME = GSconfig_Charger_Operating_Mode
+CMD-gssi-GSconfig_Sell_Volts-NAME = GSconfig_Sell_Volts

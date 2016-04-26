@@ -1,6 +1,6 @@
 <nodeDefs>
     <!-- Outback Control -->
-    <nodeDef id="outbackaxs" nls="obaxs">
+    <nodeDef id="outbackaxs" nls="obaxs" eventMap="I_STD">
         <editors />
         <sts>
 			 <st id="GV1" editor="I_KW_FLOAT" />
@@ -14,18 +14,47 @@
         <cmds>
             <sends />
             <accepts>
+				<cmd id="OutBack_Load_Grid_Transfer_Threshold">
+					<p id="" editor="I_KW_FLOAT" init="GV1" />
+				</cmd>
+				<cmd id="OB_Inverter_AC_Drop_Use">
+					<p id="" editor="E_OB_AC_DROP" />
+				</cmd>
+				<cmd id="OB_Set_Inverter_Mode">
+					<p id="" editor="E_OB_SETMODE" />
+				</cmd>
+				<cmd id="OB_Grid_Tie_Mode">
+					<p id="" editor="E_OB_GRID_TIE" />
+				</cmd>
+				<cmd id="OB_Set_Inverter_Charger_Mode">
+					<p id="" editor="E_OB_CHARGE" />
+				</cmd>
+				<cmd id="OB_Set_Sell_Voltage">
+					<p id="" editor="I_VOLTS_FLOAT" init="GV3" />
+				</cmd>
+				<cmd id="OB_Set_Radian_Inverter_Sell_Current_Limit">
+					<p id="" editor="I_AMPS_FLOAT" init="GV4" />
+				</cmd>
+				<cmd id="OB_Set_Inverter_Charger_Current_Limit">
+					<p id="" editor="I_AMPS_FLOAT" init="GV5" />
+				</cmd>
+				<cmd id="OB_Set_Inverter_AC1_Current_Limit">
+					<p id="" editor="I_AMPS_FLOAT" init="GV6" />
+				</cmd>
+				<cmd id="OB_Set_Inverter_AC2_Current_Limit">
+					<p id="" editor="I_AMPS_FLOAT" init="GV7" />
+				</cmd>
+				
 			    <cmd id="QUERY" />
 		    </accepts>
         </cmds>
     </nodeDef>
-	<!-- NODE DEF from 5.0 document http://wiki.universal-devices.com/index.php?title=V50_MAIN -->
    <nodeDef id="fxinverter" nls="fxi" eventMap="I_STD">
-      <!-- sts optional="true" - indicates that some of these may not ever be used for the thermostat -->
       <sts>
-		 <st id="GV1" editor="I_AMPS" />
-		 <st id="GV2" editor="I_AMPS" />
-		 <st id="GV3" editor="I_AMPS" />
-		 <st id="GV4" editor="I_AMPS" />
+		 <st id="GV1" editor="I_AMPS_FLOAT" />
+		 <st id="GV2" editor="I_AMPS_FLOAT" />
+		 <st id="GV3" editor="I_AMPS_FLOAT" />
+		 <st id="GV4" editor="I_AMPS_FLOAT" />
 		 <st id="GV5" editor="I_VOLTS" />
 		 <st id="GV6" editor="E_FX_AC" />
 		 <st id="GV7" editor="E_FX_GRID" />
@@ -34,39 +63,106 @@
 		 <st id="GV10" editor="I_AMPS_FLOAT" />
 		 <st id="GV11" editor="E_FX_STATUS" />
 		 <st id="GV12" editor="I_VOLTS_FLOAT" />
-		<!--
-         <st id="ST" editor="I_TEMP_DEG" />
-         <st id="CLISPH" editor="I_CLISPH_DEG" />
-         <st id="CLISPC" editor="I_CLISPC_DEG" />
-         <st id="CLIMD" editor="I_TSTAT_MODE" />
-         <st id="CLIFS" editor="I_TSTAT_FAN_MODE" />
-         <st id="CLIHUM" editor="I_TSTAT_HUM" />
-         <st id="CLIHCS" editor="I_TSTAT_HCS" />
-         <st id="GV2" editor="I_TEMP_DEG" />
-		 <st id="GV4" editor="nstatus" />		 -->
       </sts>
       <cmds>
          <accepts>
-			<!--
-            <cmd id="CLISPH">
-               <p id="" editor="I_CLISPH_DEG" init="CLISPH" />
-            </cmd>
-            <cmd id="CLISPC">
-               <p id="" editor="I_CLISPC_DEG" init="CLISPC" />
-            </cmd>
-            <cmd id="CLIMD">
-               <p id="" editor="I_TSTAT_MODE" init="CLIMD" />
-            </cmd>
-            <cmd id="CLIFS">
-               <p id="" editor="I_TSTAT_FAN_MODE" init="CLIFS" />
-            </cmd>
-            <cmd id="BRT" />
-            <cmd id="DIM" />
-            <cmd id="BEEP">
-               <p id="" editor="I_BEEP_255" optional="T" />
-            </cmd> -->
+			<cmd id="FXconfig_AC_Input_Type">
+				<p id="" editor="E_FX_GRID" init="GV7"/>
+			</cmd>
+			<cmd id="FXconfig_Grid_AC_Input_Current_Limit">
+				<p id="" editor="I_AMPS_FLOAT" init="GV8" />
+			</cmd>
+			<cmd id="FXconfig_Gen_AC_Input_Current_Limit">
+				<p id="" editor="I_AMPS_FLOAT" init="GV9" />
+			</cmd>
+			<cmd id="FXconfig_Charger_AC_Input_Current_Limit">
+				<p id="" editor="I_AMPS_FLOAT" init="GV10" />
+			</cmd>
+			<cmd id="FXconfig_Charger_Operating_Mode">
+				<p id="" editor="E_FX_STATUS" init="GV11" />
+			</cmd>
+			<cmd id="FXconfig_Sell_Volts">
+				<p id="" editor="I_VOLTS_FLOAT" init="GV12" />
+			</cmd>
             <cmd id="QUERY" />
          </accepts>
       </cmds>
   </nodeDef>
-</nodeDefs>
+   <nodeDef id="gssinverter" nls="gssi" eventMap="I_STD">
+      <sts>
+		 <st id="GV1" editor="I_AMPS_FLOAT" />
+		 <st id="GV2" editor="I_AMPS_FLOAT" />
+		 <st id="GV3" editor="I_AMPS_FLOAT" />
+		 <st id="GV4" editor="I_AMPS_FLOAT" />
+		 <st id="GV5" editor="I_VOLTS" />
+		 <st id="GV6" editor="E_GSS_OM" />
+		 <st id="GV7" editor="E_GS_GRID" />
+		 <st id="GV8" editor="E_GS_AC" />
+		 <st id="GV9" editor="I_AMPS_FLOAT" />
+		 <st id="GV10" editor="I_AMPS_FLOAT" />
+		 <st id="GV11" editor="I_AMPS_FLOAT" />
+		 <st id="GV12" editor="E_GS_OM" />
+		 <st id="GV13" editor="I_VOLTS_FLOAT" />
+      </sts>
+      <cmds>
+         <accepts>
+			<cmd id="GSconfig_Grid_AC_Input_Current_Limit">
+				<p id="" editor="I_AMPS_FLOAT" init="GV9"/>
+			</cmd>
+			<cmd id="GSconfig_Gen_AC_Input_Current_Limit">
+				<p id="" editor="I_AMPS_FLOAT" init="GV10" />
+			</cmd>
+			<cmd id="GSconfig_Charger_AC_Input_Current_Limit">
+				<p id="" editor="I_AMPS_FLOAT" init="GV11" />
+			</cmd>
+			<cmd id="GSconfig_Charger_Operating_Mode">
+				<p id="" editor="E_GS_OM" init="GV12" />
+			</cmd>
+			<cmd id="GSconfig_Sell_Volts">
+				<p id="" editor="I_VOLTS_FLOAT" init="GV13" />
+			</cmd>
+            <cmd id="QUERY" />
+         </accepts>
+      </cmds>
+  </nodeDef>
+   <nodeDef id="gsinverter" nls="gsi" eventMap="I_STD">
+      <sts>
+		 <st id="GV1" editor="I_AMPS_FLOAT" />
+		 <st id="GV2" editor="I_AMPS_FLOAT" />
+		 <st id="GV3" editor="I_AMPS_FLOAT" />
+		 <st id="GV4" editor="I_AMPS_FLOAT" />
+		 <st id="GV5" editor="I_VOLTS" />
+		 <st id="GV6" editor="I_AMPS_FLOAT" />
+		 <st id="GV7" editor="I_AMPS_FLOAT" />
+		 <st id="GV8" editor="I_AMPS_FLOAT" />
+		 <st id="GV9" editor="I_AMPS_FLOAT" />
+		 <st id="GV10" editor="E_GS_GRID" />
+		 <st id="GV11" editor="E_GS_AC" />
+		 <st id="GV12" editor="I_AMPS_FLOAT" />
+		 <st id="GV13" editor="I_AMPS_FLOAT" />
+		 <st id="GV14" editor="I_AMPS_FLOAT" />
+		 <st id="GV15" editor="E_GS_OM" />
+		 <st id="GV16" editor="I_VOLTS_FLOAT" />
+      </sts>
+      <cmds>
+         <accepts>
+			<cmd id="GSconfig_Grid_AC_Input_Current_Limit">
+				<p id="" editor="I_AMPS_FLOAT" init="GV12"/>
+			</cmd>
+			<cmd id="GSconfig_Gen_AC_Input_Current_Limit">
+				<p id="" editor="I_AMPS_FLOAT" init="GV13" />
+			</cmd>
+			<cmd id="GSconfig_Charger_AC_Input_Current_Limit">
+				<p id="" editor="I_AMPS_FLOAT" init="GV14" />
+			</cmd>
+			<cmd id="GSconfig_Charger_Operating_Mode">
+				<p id="" editor="E_GS_OM" init="GV15" />
+			</cmd>
+			<cmd id="GSconfig_Sell_Volts">
+				<p id="" editor="I_VOLTS_FLOAT" init="GV16" />
+			</cmd>
+            <cmd id="QUERY" />
+         </accepts>
+      </cmds>
+  </nodeDef>
+ </nodeDefs>
