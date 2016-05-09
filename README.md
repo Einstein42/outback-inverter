@@ -1,2 +1,4 @@
-# inverter-modbus
-Inverter Modbus Polyglot Nodeserver
+# outback-inverter
+OutBack Inverter Polyglot Nodeserver
+
+HTML documentation located in the docs folder.
