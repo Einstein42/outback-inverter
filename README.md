@@ -1,2 +1,3 @@
-# inverter-modbus
-Inverter Modbus Polyglot Nodeserver
+# outback-inverter
+OutBack Inverter Polyglot Nodeserver
+
