@@ -1,0 +1,677 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Classes &mdash; OutBack-Inverter 0.1.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="OutBack-Inverter 0.1.1 documentation" href="index.html"/>
+        <link rel="next" title="Methods" href="methods.html"/>
+        <link rel="prev" title="OutBack-Inverter’s documentation" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> OutBack-Inverter
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#gsinverter">GSInverter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gs-single-phase-inverter">GS Single Phase Inverter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sunspec-inverter">SunSpec Inverter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#flexnet-dc-module">FLEXNet-DC Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#outback-master-node">OutBack Master Node</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="methods.html">Methods</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">OutBack-Inverter</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Classes</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/outback_types.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-outback_types">
+<span id="classes"></span><h1>Classes<a class="headerlink" href="#module-outback_types" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="gsinverter">
+<h2>GSInverter<a class="headerlink" href="#gsinverter" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="outback_types.GSInverter">
+<em class="property">class </em><code class="descclassname">outback_types.</code><code class="descname">GSInverter</code><span class="sig-paren">(</span><em>parent</em>, <em>primary</em>, <em>address</em>, <em>device</em>, <em>name</em>, <em>manifest=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/outback_types.html#GSInverter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#outback_types.GSInverter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">outback_types.Node</span></code></p>
+<p>Instantiate a GSInverter Type Node.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>parent</strong> &#8211; Parent node device (OutbackNodeServer)</li>
+<li><strong>primary</strong> &#8211; True/False if this is the primary node</li>
+<li><strong>address</strong> &#8211; Address of the node for ISY</li>
+<li><strong>device</strong> &#8211; The device value we discovered from the AXS Port</li>
+<li><strong>manifest</strong> &#8211; Directory of config values</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="outback_types.GSInverter._drivers">
+<code class="descname">_drivers</code><em class="property"> = {'GV10': [0, 25, &lt;type 'int'&gt;], 'GV11': [0, 25, &lt;type 'int'&gt;], 'GV13': [0, 1, &lt;type 'float'&gt;], 'GV14': [0, 1, &lt;type 'float'&gt;], 'GV8': [0, 1, &lt;type 'float'&gt;], 'GV9': [0, 1, &lt;type 'int'&gt;], 'GV12': [0, 1, &lt;type 'float'&gt;], 'GV15': [0, 25, &lt;type 'int'&gt;], 'GV2': [0, 1, &lt;type 'int'&gt;], 'GV3': [0, 1, &lt;type 'int'&gt;], 'GV16': [0, 72, &lt;type 'float'&gt;], 'GV1': [0, 1, &lt;type 'int'&gt;], 'GV6': [0, 1, &lt;type 'int'&gt;], 'GV7': [0, 1, &lt;type 'int'&gt;], 'GV4': [0, 1, &lt;type 'int'&gt;], 'GV5': [0, 72, &lt;type 'int'&gt;]}</em><a class="headerlink" href="#outback_types.GSInverter._drivers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="outback_types.GSInverter._commands">
+<code class="descname">_commands</code><em class="property"> = {'GSconfig_Charger_Operating_Mode': &lt;function setRegister at 0x75ba03f0&gt;, 'GSconfig_Gen_AC_Input_Current_Limit': &lt;function setRegister at 0x75ba03f0&gt;, 'GSconfig_Grid_AC_Input_Current_Limit': &lt;function setRegister at 0x75ba03f0&gt;, 'GSconfig_Charger_AC_Input_Current_Limit': &lt;function setRegister at 0x75ba03f0&gt;, 'GSconfig_Sell_Volts': &lt;function setRegister at 0x75ba03f0&gt;, 'QUERY': &lt;function query at 0x75ba0430&gt;}</em><a class="headerlink" href="#outback_types.GSInverter._commands" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="outback_types.GSInverter.node_def_id">
+<code class="descname">node_def_id</code><em class="property"> = 'gsinverter'</em><a class="headerlink" href="#outback_types.GSInverter.node_def_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="outback_types.GSInverter.registers_needed">
+<code class="descname">registers_needed</code><em class="property"> = ['GS_Split_L1_Inverter_Output_Current', 'GS_Split_L1_Inverter_Charge_Current', 'GS_Split_L1_Inverter_Buy_Current', 'GS_Split_L1_Inverter_Sell_Current', 'GS_Split_L1_Grid_Input_AC_Voltage', 'GS_Split_L2_Inverter_Output_Current', 'GS_Split_L2_Inverter_Charge_Current', 'GS_Split_L2_Inverter_Buy_Current', 'GS_Split_L2_Inverter_Sell_Current', 'GS_Split_AC_Input_Selection', 'GS_Split_AC_Input_State', 'GSconfig_Grid_AC_Input_Current_Limit', 'GSconfig_Gen_AC_Input_Current_Limit', 'GSconfig_Charger_AC_Input_Current_Limit', 'GSconfig_Charger_Operating_Mode', 'GSconfig_Sell_Volts']</em><a class="headerlink" href="#outback_types.GSInverter.registers_needed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="outback_types.GSInverter.getRegisters">
+<code class="descname">getRegisters</code><span class="sig-paren">(</span><em>device</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/outback_types.html#GSInverter.getRegisters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#outback_types.GSInverter.getRegisters" title="Permalink to this definition">¶</a></dt>
+<dd><p>getRegisters for the device based on the registers_needed</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>device</strong> &#8211; The device to pull from</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="outback_types.GSInverter.query">
+<code class="descname">query</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/outback_types.html#GSInverter.query"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#outback_types.GSInverter.query" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get updated values for the registers</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="outback_types.GSInverter.setRegister">
+<code class="descname">setRegister</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/outback_types.html#GSInverter.setRegister"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#outback_types.GSInverter.setRegister" title="Permalink to this definition">¶</a></dt>
+<dd><p>setRegister for the device based on input from the ISY</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>kwargs</strong> &#8211; The input command from the ISY (dictionary)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="gs-single-phase-inverter">
+<h2>GS Single Phase Inverter<a class="headerlink" href="#gs-single-phase-inverter" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="outback_types.GSSingleInverter">
+<em class="property">class </em><code class="descclassname">outback_types.</code><code class="descname">GSSingleInverter</code><span class="sig-paren">(</span><em>parent</em>, <em>primary</em>, <em>address</em>, <em>device</em>, <em>name</em>, <em>manifest=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/outback_types.html#GSSingleInverter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#outback_types.GSSingleInverter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">outback_types.Node</span></code></p>
+<p>Instantiate a GS Single Phase Inverter Type Node.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>parent</strong> &#8211; Parent node device (OutbackNodeServer)</li>
+<li><strong>primary</strong> &#8211; True/False if this is the primary node</li>
+<li><strong>address</strong> &#8211; Address of the node for ISY</li>
+<li><strong>device</strong> &#8211; The device value we discovered from the AXS Port</li>
+<li><strong>manifest</strong> &#8211; Directory of config values</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="outback_types.GSSingleInverter._drivers">
+<code class="descname">_drivers</code><em class="property"> = {'GV10': [0, 1, &lt;type 'float'&gt;], 'GV11': [0, 1, &lt;type 'float'&gt;], 'GV12': [0, 25, &lt;type 'int'&gt;], 'GV13': [0, 72, &lt;type 'float'&gt;], 'GV8': [0, 25, &lt;type 'int'&gt;], 'GV9': [0, 1, &lt;type 'float'&gt;], 'GV2': [0, 1, &lt;type 'int'&gt;], 'GV3': [0, 1, &lt;type 'int'&gt;], 'GV1': [0, 1, &lt;type 'int'&gt;], 'GV6': [0, 25, &lt;type 'int'&gt;], 'GV7': [0, 25, &lt;type 'int'&gt;], 'GV4': [0, 1, &lt;type 'int'&gt;], 'GV5': [0, 72, &lt;type 'int'&gt;]}</em><a class="headerlink" href="#outback_types.GSSingleInverter._drivers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="outback_types.GSSingleInverter._commands">
+<code class="descname">_commands</code><em class="property"> = {'GSconfig_Charger_Operating_Mode': &lt;function setRegister at 0x75ba04f0&gt;, 'GSconfig_Gen_AC_Input_Current_Limit': &lt;function setRegister at 0x75ba04f0&gt;, 'GSconfig_Grid_AC_Input_Current_Limit': &lt;function setRegister at 0x75ba04f0&gt;, 'GSconfig_Charger_AC_Input_Current_Limit': &lt;function setRegister at 0x75ba04f0&gt;, 'GSconfig_Sell_Volts': &lt;function setRegister at 0x75ba04f0&gt;, 'QUERY': &lt;function query at 0x75ba0530&gt;}</em><a class="headerlink" href="#outback_types.GSSingleInverter._commands" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="outback_types.GSSingleInverter.node_def_id">
+<code class="descname">node_def_id</code><em class="property"> = 'gssinverter'</em><a class="headerlink" href="#outback_types.GSSingleInverter.node_def_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="outback_types.GSSingleInverter.registers_needed">
+<code class="descname">registers_needed</code><em class="property"> = ['GS_Single_Inverter_Output_Current', 'GS_Single_Inverter_Charge_Current', 'GS_Single_Inverter_Buy_Current', 'GS_Single_Inverter_Sell_Current', 'GS_Single_Grid_Input_AC_Voltage', 'GS_Single_Inverter_Operating_mode', 'GS_Single_AC_Input_Selection', 'GS_Single_AC_Input_State', 'GSconfig_Grid_AC_Input_Current_Limit', 'GSconfig_Gen_AC_Input_Current_Limit', 'GSconfig_Charger_AC_Input_Current_Limit', 'GSconfig_Charger_Operating_Mode', 'GSconfig_Sell_Volts']</em><a class="headerlink" href="#outback_types.GSSingleInverter.registers_needed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="outback_types.GSSingleInverter.getRegisters">
+<code class="descname">getRegisters</code><span class="sig-paren">(</span><em>device</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/outback_types.html#GSSingleInverter.getRegisters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#outback_types.GSSingleInverter.getRegisters" title="Permalink to this definition">¶</a></dt>
+<dd><p>getRegisters for the device based on the registers_needed</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>device</strong> &#8211; The device to pull from</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="outback_types.GSSingleInverter.query">
+<code class="descname">query</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/outback_types.html#GSSingleInverter.query"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#outback_types.GSSingleInverter.query" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get updated values for the registers</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="outback_types.GSSingleInverter.setRegister">
+<code class="descname">setRegister</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/outback_types.html#GSSingleInverter.setRegister"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#outback_types.GSSingleInverter.setRegister" title="Permalink to this definition">¶</a></dt>
+<dd><p>setRegister for the device based on input from the ISY</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>kwargs</strong> &#8211; The input command from the ISY (dictionary)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="sunspec-inverter">
+<h2>SunSpec Inverter<a class="headerlink" href="#sunspec-inverter" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="outback_types.SunSpecInverter">
+<em class="property">class </em><code class="descclassname">outback_types.</code><code class="descname">SunSpecInverter</code><span class="sig-paren">(</span><em>parent</em>, <em>primary</em>, <em>address</em>, <em>device</em>, <em>name</em>, <em>manifest=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/outback_types.html#SunSpecInverter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#outback_types.SunSpecInverter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">outback_types.Node</span></code></p>
+<p>Instantiate a SunSpec Type Node.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>parent</strong> &#8211; Parent node device (OutbackNodeServer)</li>
+<li><strong>primary</strong> &#8211; True/False if this is the primary node</li>
+<li><strong>address</strong> &#8211; Address of the node for ISY</li>
+<li><strong>device</strong> &#8211; The device value we discovered from the AXS Port</li>
+<li><strong>manifest</strong> &#8211; Directory of config values</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="outback_types.SunSpecInverter._drivers">
+<code class="descname">_drivers</code><em class="property"> = {'GV2': [0, 1, &lt;type 'float'&gt;], 'GV3': [0, 72, &lt;type 'float'&gt;], 'GV1': [0, 73, &lt;type 'float'&gt;], 'GV4': [0, 73, &lt;type 'float'&gt;]}</em><a class="headerlink" href="#outback_types.SunSpecInverter._drivers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="outback_types.SunSpecInverter._commands">
+<code class="descname">_commands</code><em class="property"> = {'QUERY': &lt;function query at 0x75ba0630&gt;}</em><a class="headerlink" href="#outback_types.SunSpecInverter._commands" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="outback_types.SunSpecInverter.node_def_id">
+<code class="descname">node_def_id</code><em class="property"> = 'sunspec'</em><a class="headerlink" href="#outback_types.SunSpecInverter.node_def_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="outback_types.SunSpecInverter.registers_needed">
+<code class="descname">registers_needed</code><em class="property"> = ['I_AC_Power', 'I_DC_Current', 'I_DC_Voltage', 'I_DC_Power']</em><a class="headerlink" href="#outback_types.SunSpecInverter.registers_needed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="outback_types.SunSpecInverter.getRegisters">
+<code class="descname">getRegisters</code><span class="sig-paren">(</span><em>device</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/outback_types.html#SunSpecInverter.getRegisters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#outback_types.SunSpecInverter.getRegisters" title="Permalink to this definition">¶</a></dt>
+<dd><p>getRegisters for the device based on the registers_needed</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>device</strong> &#8211; The device to pull from</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="outback_types.SunSpecInverter.query">
+<code class="descname">query</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/outback_types.html#SunSpecInverter.query"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#outback_types.SunSpecInverter.query" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get updated values for the registers</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="outback_types.SunSpecInverter.setRegister">
+<code class="descname">setRegister</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/outback_types.html#SunSpecInverter.setRegister"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#outback_types.SunSpecInverter.setRegister" title="Permalink to this definition">¶</a></dt>
+<dd><p>setRegister for the device based on input from the ISY</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>kwargs</strong> &#8211; The input command from the ISY (dictionary)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="flexnet-dc-module">
+<h2>FLEXNet-DC Module<a class="headerlink" href="#flexnet-dc-module" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="outback_types.FLEXNet">
+<em class="property">class </em><code class="descclassname">outback_types.</code><code class="descname">FLEXNet</code><span class="sig-paren">(</span><em>parent</em>, <em>primary</em>, <em>address</em>, <em>device</em>, <em>name</em>, <em>manifest=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/outback_types.html#FLEXNet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#outback_types.FLEXNet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">outback_types.Node</span></code></p>
+<p>Instantiate a FLEXNet-DC Add-on Module Type Node.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>parent</strong> &#8211; Parent node device (OutbackNodeServer)</li>
+<li><strong>primary</strong> &#8211; True/False if this is the primary node</li>
+<li><strong>address</strong> &#8211; Address of the node for ISY</li>
+<li><strong>device</strong> &#8211; The device value we discovered from the AXS Port</li>
+<li><strong>manifest</strong> &#8211; Directory of config values</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="outback_types.FLEXNet._drivers">
+<code class="descname">_drivers</code><em class="property"> = {'GV2': [0, 1, &lt;type 'float'&gt;], 'GV3': [0, 51, &lt;type 'int'&gt;], 'GV1': [0, 1, &lt;type 'float'&gt;], 'GV4': [0, 30, &lt;type 'float'&gt;]}</em><a class="headerlink" href="#outback_types.FLEXNet._drivers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="outback_types.FLEXNet._commands">
+<code class="descname">_commands</code><em class="property"> = {'QUERY': &lt;function query at 0x75ba0730&gt;}</em><a class="headerlink" href="#outback_types.FLEXNet._commands" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="outback_types.FLEXNet.node_def_id">
+<code class="descname">node_def_id</code><em class="property"> = 'flexnet'</em><a class="headerlink" href="#outback_types.FLEXNet.node_def_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="outback_types.FLEXNet.registers_needed">
+<code class="descname">registers_needed</code><em class="property"> = ['FN_Shunt_A_Current', 'FN_Shunt_B_Current', 'FN_Shunt_C_Current', 'FN_Input_kW', 'FN_Output_kW', 'FN_Net_kW', 'FN_State_Of_Charge']</em><a class="headerlink" href="#outback_types.FLEXNet.registers_needed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="outback_types.FLEXNet.getRegisters">
+<code class="descname">getRegisters</code><span class="sig-paren">(</span><em>device</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/outback_types.html#FLEXNet.getRegisters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#outback_types.FLEXNet.getRegisters" title="Permalink to this definition">¶</a></dt>
+<dd><p>getRegisters for the device based on the registers_needed</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>device</strong> &#8211; The device to pull from</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="outback_types.FLEXNet.query">
+<code class="descname">query</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/outback_types.html#FLEXNet.query"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#outback_types.FLEXNet.query" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get updated values for the registers</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="outback_types.FLEXNet.setRegister">
+<code class="descname">setRegister</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/outback_types.html#FLEXNet.setRegister"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#outback_types.FLEXNet.setRegister" title="Permalink to this definition">¶</a></dt>
+<dd><p>setRegister for the device based on input from the ISY</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>kwargs</strong> &#8211; The input command from the ISY (dictionary)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="outback-master-node">
+<h2>OutBack Master Node<a class="headerlink" href="#outback-master-node" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="outback_types.OutbackNode">
+<em class="property">class </em><code class="descclassname">outback_types.</code><code class="descname">OutbackNode</code><span class="sig-paren">(</span><em>parent</em>, <em>address</em>, <em>name</em>, <em>primary</em>, <em>manifest=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/outback_types.html#OutbackNode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#outback_types.OutbackNode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">outback_types.Node</span></code></p>
+<p>Instantiate the Main OutBack Type Node.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>parent</strong> &#8211; Parent node device (OutbackNodeServer)</li>
+<li><strong>primary</strong> &#8211; True/False if this is the primary node</li>
+<li><strong>address</strong> &#8211; Address of the node for ISY</li>
+<li><strong>device</strong> &#8211; The device value we discovered from the AXS Port</li>
+<li><strong>manifest</strong> &#8211; Directory of config values</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="outback_types.OutbackNode._drivers">
+<code class="descname">_drivers</code><em class="property"> = {'GV2': [0, 4, &lt;type 'int'&gt;], 'GV3': [0, 72, &lt;type 'float'&gt;], 'GV1': [0, 30, &lt;type 'float'&gt;], 'GV6': [0, 1, &lt;type 'float'&gt;], 'GV7': [0, 1, &lt;type 'float'&gt;], 'GV4': [0, 1, &lt;type 'float'&gt;], 'GV5': [0, 1, &lt;type 'float'&gt;]}</em><a class="headerlink" href="#outback_types.OutbackNode._drivers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="outback_types.OutbackNode._commands">
+<code class="descname">_commands</code><em class="property"> = {'OB_Set_Radian_Inverter_Sell_Current_Limit': &lt;function setRegister at 0x75ba0bb0&gt;, 'OB_Set_Inverter_Mode': &lt;function setRegister at 0x75ba0bb0&gt;, 'OB_Set_Inverter_Charger_Mode': &lt;function setRegister at 0x75ba0bb0&gt;, 'OB_Set_Inverter_Charger_Current_Limit': &lt;function setRegister at 0x75ba0bb0&gt;, 'OB_Set_Inverter_AC1_Current_Limit': &lt;function setRegister at 0x75ba0bb0&gt;, 'OB_Grid_Tie_Mode': &lt;function setRegister at 0x75ba0bb0&gt;, 'OB_Set_Sell_Voltage': &lt;function setRegister at 0x75ba0bb0&gt;, 'OB_Inverter_AC_Drop_Use': &lt;function setRegister at 0x75ba0bb0&gt;, 'OB_Set_Inverter_AC2_Current_Limit': &lt;function setRegister at 0x75ba0bb0&gt;, 'OutBack_Load_Grid_Transfer_Threshold': &lt;function setRegister at 0x75ba0bb0&gt;, 'QUERY': &lt;function query at 0x75ba09b0&gt;}</em><a class="headerlink" href="#outback_types.OutbackNode._commands" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="outback_types.OutbackNode.node_def_id">
+<code class="descname">node_def_id</code><em class="property"> = 'outbackaxs'</em><a class="headerlink" href="#outback_types.OutbackNode.node_def_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="outback_types.OutbackNode.registers_needed">
+<code class="descname">registers_needed</code><em class="property"> = ['OutBack_Load_Grid_Transfer_Threshold', 'OutBack_Temp_Batt', 'OB_Set_Sell_Voltage', 'OB_Set_Radian_Inverter_Sell_Current_Limit', 'OB_Set_Inverter_Charger_Current_Limit', 'OB_Set_Inverter_AC1_Current_Limit', 'OB_Set_Inverter_AC2_Current_Limit']</em><a class="headerlink" href="#outback_types.OutbackNode.registers_needed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="outback_types.OutbackNode.SunSpecDevice">
+<em class="property">class </em><code class="descname">SunSpecDevice</code><span class="sig-paren">(</span><em>parent</em>, <em>id=0</em>, <em>name=''</em>, <em>type=0</em>, <em>addr=0</em>, <em>offset=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/outback_types.html#OutbackNode.SunSpecDevice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#outback_types.OutbackNode.SunSpecDevice" title="Permalink to this definition">¶</a></dt>
+<dd><p>SunSpec Device Class</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>parent</strong> &#8211; Parent</li>
+<li><strong>id</strong> &#8211; ID (0 default)</li>
+<li><strong>name</strong> &#8211; Name of device from sunspec tables</li>
+<li><strong>type</strong> &#8211; Type of device from sunspec tables</li>
+<li><strong>addr</strong> &#8211; Register Address</li>
+<li><strong>offset</strong> &#8211; Register offset</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="outback_types.OutbackNode.addInverters">
+<code class="descclassname">OutbackNode.</code><code class="descname">addInverters</code><span class="sig-paren">(</span><em>controller</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/outback_types.html#OutbackNode.addInverters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#outback_types.OutbackNode.addInverters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds all the different types of inverters and adds them to the ISY as appropriate.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>controller</strong> &#8211; The full controller object (aka self)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="outback_types.OutbackNode.closeConnection">
+<code class="descclassname">OutbackNode.</code><code class="descname">closeConnection</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/outback_types.html#OutbackNode.closeConnection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#outback_types.OutbackNode.closeConnection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Closes the connection to the AXS Port</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="outback_types.OutbackNode.determineSetup">
+<code class="descclassname">OutbackNode.</code><code class="descname">determineSetup</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/outback_types.html#OutbackNode.determineSetup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#outback_types.OutbackNode.determineSetup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes all the devices found and determines what kind of implementation we have
+and sets the global type constants.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="outback_types.OutbackNode.getDevices">
+<code class="descclassname">OutbackNode.</code><code class="descname">getDevices</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/outback_types.html#OutbackNode.getDevices"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#outback_types.OutbackNode.getDevices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get all the devices that are present in the system. Performs a scan of all the registers.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="outback_types.OutbackNode.getRegisters">
+<code class="descclassname">OutbackNode.</code><code class="descname">getRegisters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/outback_types.html#OutbackNode.getRegisters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#outback_types.OutbackNode.getRegisters" title="Permalink to this definition">¶</a></dt>
+<dd><p>getRegisters for the device based on the registers_needed</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="outback_types.OutbackNode.getSerial">
+<code class="descclassname">OutbackNode.</code><code class="descname">getSerial</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/outback_types.html#OutbackNode.getSerial"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#outback_types.OutbackNode.getSerial" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the Serial number of the AXS Port (Used for address creation)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="outback_types.OutbackNode.openConnection">
+<code class="descclassname">OutbackNode.</code><code class="descname">openConnection</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/outback_types.html#OutbackNode.openConnection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#outback_types.OutbackNode.openConnection" title="Permalink to this definition">¶</a></dt>
+<dd><p>The openConnection method to open/re-open or verify connection to AXS Port is open.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="outback_types.OutbackNode.query">
+<code class="descclassname">OutbackNode.</code><code class="descname">query</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/outback_types.html#OutbackNode.query"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#outback_types.OutbackNode.query" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get updated values for the registers</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="outback_types.OutbackNode.setRegister">
+<code class="descclassname">OutbackNode.</code><code class="descname">setRegister</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/outback_types.html#OutbackNode.setRegister"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#outback_types.OutbackNode.setRegister" title="Permalink to this definition">¶</a></dt>
+<dd><p>setRegister for the device based on input from the ISY</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>kwargs</strong> &#8211; The input command from the ISY (dictionary)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="outback_types.OutbackNode.update_info">
+<code class="descclassname">OutbackNode.</code><code class="descname">update_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/outback_types.html#OutbackNode.update_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#outback_types.OutbackNode.update_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update all the registers (runs on short_poll)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="outback_types.OutbackNode.verifySunSpec">
+<code class="descclassname">OutbackNode.</code><code class="descname">verifySunSpec</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/outback_types.html#OutbackNode.verifySunSpec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#outback_types.OutbackNode.verifySunSpec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verify that the device returns the ID of a SunSpec device
+0x53756E53 at the first 2 bits of register 40000</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="methods.html" class="btn btn-neutral float-right" title="Methods" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="OutBack-Inverter’s documentation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, 3C Solutions LLC.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
