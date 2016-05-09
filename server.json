@@ -1,13 +1,13 @@
 {
-    "name": "Outback Inverter",
+    "name": "OutBack Inverter",
     "docs": "",
     "type": "python",
     "executable": "outback_inverter.py",
-    "description": "Add Modbus control to the ISY994.",
+    "description": "Add OutBack Modbus control to the ISY994.",
     "notice": "",
     "credits": [
         {
-            "title": "Outback Inverter: A Python library for Outback SunSpec Devices",
+            "title": "OutBack Inverter: A Python library for OutBack SunSpec Devices",
             "author": "James Milne (Einstein.42)",
             "version": "0.1.1",
             "date": "April 8th, 2016",

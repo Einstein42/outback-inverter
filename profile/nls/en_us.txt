@@ -2,7 +2,7 @@
 CMD-ST-NAME = Query
 
 # Outback Controller
-ND-outbackaxs-NAME = Outback Controller
+ND-outbackaxs-NAME = OutBack Controller
 ND-outbackaxs-ICON = Electricity
 ST-obaxs-GV1-NAME = OutBack_Load_Grid_Transfer_Threshold
 ST-obaxs-GV2-NAME = OutBack_Temp_Batt
@@ -128,3 +128,22 @@ CMD-gssi-GSconfig_Gen_AC_Input_Current_Limit-NAME = GSconfig_Gen_AC_Input_Curren
 CMD-gssi-GSconfig_Charger_AC_Input_Current_Limit-NAME = GSconfig_Charger_AC_Input_Current_Limit
 CMD-gssi-GSconfig_Charger_Operating_Mode-NAME = GSconfig_Charger_Operating_Mode
 CMD-gssi-GSconfig_Sell_Volts-NAME = GSconfig_Sell_Volts
+
+# SunSpec Inverters
+ND-sunspec-NAME = SunSpec Inverter
+ND-sunspec-ICON = EnergyMonitor
+ST-ssi-GV1-NAME = I_AC_Power
+ST-ssi-GV2-NAME = I_DC_Current
+ST-ssi-GV3-NAME = I_DC_Voltage
+ST-ssi-GV4-NAME = I_DC_Power
+
+# FLEXnet-DC
+ND-flexnet-NAME = FLEXnet-DC
+ND-flexnet-ICON = EnergyMonitor
+ST-fnet-GV1-NAME = FN_Shunt_A_Current
+ST-fnet-GV2-NAME = FN_Shunt_B_Current
+ST-fnet-GV3-NAME = FN_Shunt_C_Current
+ST-fnet-GV4-NAME = FN_Input_kW
+ST-fnet-GV5-NAME = FN_Output_kW
+ST-fnet-GV6-NAME = FN_Net_kW
+ST-fnet-GV7-NAME = FN_State_Of_Charge

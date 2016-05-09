@@ -1,6 +1,6 @@
 <nodeDefs>
     <!-- Outback Control -->
-    <nodeDef id="outbackaxs" nls="obaxs" eventMap="I_STD">
+   <nodeDef id="outbackaxs" nls="obaxs" eventMap="I_STD">
         <editors />
         <sts>
 			 <st id="GV1" editor="I_KW_FLOAT" />
@@ -161,6 +161,35 @@
 			<cmd id="GSconfig_Sell_Volts">
 				<p id="" editor="I_VOLTS_FLOAT" init="GV16" />
 			</cmd>
+            <cmd id="QUERY" />
+         </accepts>
+      </cmds>
+  </nodeDef>
+   <nodeDef id="sunspec" nls="ssi" eventMap="I_STD">
+      <sts>
+		 <st id="GV1" editor="I_WATTS_FLOAT" />
+		 <st id="GV2" editor="I_AMPS_FLOAT" />
+		 <st id="GV3" editor="I_VOLTS_FLOAT" />
+		 <st id="GV4" editor="I_WATTS_FLOAT" />
+      </sts>
+      <cmds>
+         <accepts>
+            <cmd id="QUERY" />
+         </accepts>
+      </cmds>
+  </nodeDef>
+   <nodeDef id="flexnet" nls="fnet" eventMap="I_STD">
+      <sts>
+		 <st id="GV1" editor="I_AMPS_FLOAT" />
+		 <st id="GV2" editor="I_AMPS_FLOAT" />
+		 <st id="GV3" editor="I_AMPS_FLOAT" />
+		 <st id="GV4" editor="I_KW_FLOAT" />
+		 <st id="GV5" editor="I_KW_FLOAT" />
+		 <st id="GV6" editor="I_KW_FLOAT" />
+		 <st id="GV7" editor="I_PERCENT" />
+      </sts>
+      <cmds>
+         <accepts>
             <cmd id="QUERY" />
          </accepts>
       </cmds>

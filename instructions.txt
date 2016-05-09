@@ -4,11 +4,3 @@
 Pre-Requisites:
 
     Python 2.7
-
-    pySunSpec
-		Install pysunspec 1.0.7:
-			wget https://github.com/sunspec/pysunspec/releases/download/v.1.0.7/pysunspec-1.0.7.zip
-			unzip pysunspec-1.0.7.zip
-			cd pysunspec-1.0.7
-			sudo python setup.py install
-

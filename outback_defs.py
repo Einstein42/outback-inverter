@@ -17,6 +17,17 @@ FNDC = False
 # Global Connection manager.
 C = None
 
+# Encryption - DO NOT TOUCH
+ENCRYPTED = False
+ENCRYPTIONKEY = None
+BIAS = 0x0BCC
+def LEFT7(value): return ((((value) & 0x01FF) << 7) | ((value) >> 9))
+def RIGHT7(value): return ((((value) & 0X007F) << 9) | ((value) >> 7))
+def DECRYPT(enc, value): return (LEFT7((value) ^ enc) ^ BIAS)
+def ENCRYPT(enc, value): return (RIGHT7((value) ^ BIAS) ^ enc)
+
+
+# SunSpec Definitions
 SUNSPECID = '0x53756E53'
 MAX_DEVICES= 28
 SUNSPEC_MODBUS_REGISTER_OFFSET = 40001

@@ -10,9 +10,11 @@ VERSION = "0.1.1"
 
 
 class OutbackNodeServer(SimpleNodeServer):
+    """This is a comment for the NodeServer"""
     controller = None
     inverter_master = None
     inverter_slaves = []
+    sunspec = None
     flexnet = None
 
     def setup(self):
@@ -31,7 +33,7 @@ class OutbackNodeServer(SimpleNodeServer):
         pass
         
 def main():
-    # Setup connection, node server, and nodes
+    """Setup connection, node server, and nodes"""
     poly = PolyglotConnector()
     # Override shortpoll and longpoll timers to 5/30, once per second is excessive in this nodeserver 
     nserver = OutbackNodeServer(poly, 5, 30)
