@@ -2,12 +2,210 @@
 This library consists of four classes and one function to assist with node
 """
 
-from polyglot.nodeserver_api import Node
+#from polyglot.nodeserver_api import Node
 import sys
 import time
 import struct
 from outback_defs import *
 from pyModbusTCP.client import ModbusClient
+
+class Node(object):
+    """
+    Abstract class for representing a node in a node server.
+
+    :param parent: The node server that controls the node
+    :type parent: polyglot.nodeserver_api.NodeServer
+    :param str address: The address of the node in the ISY without the node
+                        server ID prefix
+    :param str name: The name of the node
+    :param primary: The primary node for the device this node belongs to, 
+    :               or True if it's the primary.
+    :type primary: polyglot.nodeserver_api.Node or True if this node is the primary.
+    :param manifest: The node manifest saved by the node server
+    :type manifest: dict or None
+
+    .. document private methods
+    .. autoattribute:: _drivers
+    .. autoattribute:: _commands
+    """
+
+    def __init__(self, parent, address, name, primary=True, manifest=None):
+        """ update driver values from manifest """
+        self._drivers = copy.deepcopy(self._drivers)
+        manifest = manifest.get(address, {}) if manifest else {}
+        new_node = manifest == {}
+        if not hasattr(parent,'_is_node_server'):
+            raise RuntimeError("Node '%s' parent '%s' is not a NodeServer?" % (name, parent))
+        self.parent = parent
+        self.address = address
+        self.added = manifest.get('added', False)
+        self.name = manifest.get('name', name)
+        self.logger = self.parent.poly.logger
+        self.primary = primary
+
+        drivers = manifest.get('drivers', {})
+        for key, value in self._drivers.items():
+            self._drivers[key][0] = drivers.get(key, value[0])
+
+        self.add_node()
+
+
+    def run_cmd(self, command, **kwargs):
+        """
+        Runs one of the node's commands.
+
+        :param str command: The name of the command
+        :param dict kwargs: The parameters specified by the ISY in the
+                            incoming request. See the ISY Node Server
+                            documentation for more information.
+        :returns boolean: Indicates success or failure of command
+        """
+        if command in self._commands:
+            fun = self._commands[command]
+            success = fun(self, **kwargs)
+            return success
+        return False
+
+    def set_driver(self, driver, value, uom=None, report=True):
+        """
+        Updates the value of one of the node's drivers. This will pass the
+        given value through the driver's formatter before assignment.
+
+        :param str driver: The name of the driver
+        :param value: The new value for the driver
+        :param uom: The given values unit of measurement. This should
+                    correspond to the UOM IDs used by the ISY. Refer to the ISY
+                    documentation for more information.
+        :type uom: int or None
+        :param boolean report: Indicates if the value change should be reported
+                               to the ISY. If False, the value is changed
+                               silently.
+        :returns boolean: Indicates success or failure to set new value
+        """
+        # pylint: disable=unused-argument
+        if driver in self._drivers:
+            clean_value = self._drivers[driver][2](value)
+            if clean_value != self._drivers[driver][0]:
+                self._drivers[driver][0] = clean_value
+                if report:
+                    self.report_driver(driver)
+            return True
+        return False
+
+    def report_driver(self, driver=None):
+        """
+        Reports a driver's current value to ISY
+
+        :param driver: The name of the driver to report. If None, all drivers
+                       are reported.
+        :type driver: str or None
+        :returns boolean: Indicates success or failure to report driver value
+        """
+        if driver is None:
+            drivers = self._drivers.keys()
+        else:
+            drivers = [driver]
+
+        for driver in drivers:
+            self.parent.poly.report_status(
+                self.address, driver, self._drivers[driver][0],
+                self._drivers[driver][1])
+        return True
+
+    def get_driver(self, driver=None):
+        """
+        Gets a driver's value
+
+        :param driver: The driver to return the value for
+        :type driver: str or None
+        :returns: The current value of the driver
+        """
+        if driver is not None:
+            return self._drivers[driver]
+        else:
+            return self._drivers
+
+    def query(self):
+        """
+        Abstractly queries the node. This method should generally be
+        overwritten in development.
+
+        :returns boolean: Indicates success or failure of node query
+        """
+        self.report_driver()
+        return True
+
+    def add_node(self):
+        """
+        Adds node to the ISY
+
+        :returns boolean: Indicates success or failure of node addition
+        """
+        if (int(len(self.address)) > 14):
+            if self.logger:
+                self.logger.error(
+                    "Node name too long (>14, will fail when adding to the ISY): %s",
+                    self.address)
+            # Ensure this error also appears in the main Polyglot log
+            self.parent.poly.send_error(
+                "Node name too long (>14, will fail when adding to the ISY): {}"
+                .format(self.address))
+        # Add this node to the node server
+        if self.logger:
+            self.logger.debug("Node '%s': parent='%s'" % (self.name,self.parent))
+        self.parent.add_node(self)
+        self.report_driver()
+        return True
+
+    @property
+    def manifest(self):
+        """
+        The node's manifest entry. Indicates the current value of each of the
+        drivers. This is called by the node server to create the full manifest.
+
+        :type: dict
+        """
+        manifest = {'name': self.name, 'added': self.added,
+                    'node_def_id': self.node_def_id}
+        manifest['drivers'] = {}
+
+        for key, val in self._drivers.items():
+            manifest['drivers'][key] = val[0]
+
+        return manifest
+
+
+    _drivers = {}
+    """
+    The drivers controlled by this node. This is a dictionary of lists. The
+    key's are the driver names as defined by the ISY documentation. Each list
+    contains three values: the initial value, the UOM identifier, and a
+    function that will properly format the value before assignment.
+
+    *Insteon Dimmer Example:*
+
+    .. code-block:: python
+
+        _drivers = {
+            'ST': [0, 51, int],
+            'OL': [100, 51, int],
+            'RR': [0, 32, int]
+        }
+
+    """
+
+    _commands = {}
+    """
+    A dictionary of the commands that the node can perform. The keys of this
+    dictionary are the names of the command. The values are functions that must
+    be defined in the node object that perform the necessary actions and return
+    a boolean indicating the success or failure of the command.
+    """
+
+    node_def_id = ''
+    """ The node's definition ID defined in the node server's profile """
+
+
 
 class GSInverter(Node):
     """
