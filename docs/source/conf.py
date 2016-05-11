@@ -24,9 +24,6 @@ for mod_name in MOCK_MODULES:
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 sys.path.insert(0, os.path.abspath('../..'))
-sys.path.insert(0, os.path.abspath('../../../Polyglot'))
-from polyglot.nodeserver_api import Node
-from polyglot.nodeserver_api import SimpleNodeServer, PolyglotConnector
 
 # -- General configuration ------------------------------------------------
 
@@ -58,7 +55,7 @@ master_doc = 'index'
 # General information about the project.
 project = u'OutBack-Inverter'
 copyright = u'2016, 3C Solutions LLC'
-author = u'3C Solutions LLC'
+author = u'James Milne'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -76,7 +73,7 @@ release = '0.1.1'
 #
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
-language = None
+language = 'en'
 
 # There are two options for replacing |today|: either, you set today to some
 # non-false value, then it is used:
@@ -165,7 +162,7 @@ html_static_path = ['_static']
 #html_use_smartypants = True
 
 # Custom sidebar templates, maps document names to template names.
-#html_sidebars = {}
+html_sidebars = {'**': ['globaltoc.html', 'relations.html', 'sourcelink.html', 'searchbox.html'], }
 
 # Additional templates that should be rendered to pages, maps page names to
 # template names.

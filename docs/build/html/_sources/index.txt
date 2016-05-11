@@ -6,20 +6,21 @@
 OutBack-Inverter's documentation
 ============================================
 
-OutBack-Inverter node server for Polyglot. This node server allows integration 
-the OutBack brand inverters using an AXS Port and modbus.TCP. This allows for 
-full integration into the ISY 994i.
+This is the OutBack Inverter node server for Polyglot(Universal Devices ISY integration framework). 
+This node server allows integration between the OutBack brand inverters using an AXS Port,
+and the ISY994i. 
+
+This document will document the usage of and development for Polyglot. For
+additional help, please reference the `UDI Forum
+<http://forum.universal-devices.com/forum/111-polyglot/>`_.
+
+This NodeServer is written with Python 2.7.
+
+James Milne(Einstein.42) - 2016
+
+Licensed to Universal Devices
 
 .. toctree::
    :maxdepth: 2
 
-   outback_types.rst
-   methods.rst
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
+   usage
