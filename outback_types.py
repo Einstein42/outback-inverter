@@ -64,8 +64,9 @@ class GSInverter(Node):
                         if device.port == dev.port:
                             self.registers[register] = getOne(self.logger, dev, register)
             driver = 'GV' + str(i+1)
-            if self.registers[register] == 'Not Implemented': self.registers[register] = 0
-            self.set_driver(driver, self.registers[register])
+            if self.registers[register] is not None:
+                if self.registers[register] == 'Not Implemented': self.registers[register] = 0
+                self.set_driver(driver, self.registers[register])
         if DEBUGLEVEL == '2':
             self.logger.debug('%s', self.registers)
         return True
@@ -189,8 +190,9 @@ class GSSingleInverter(Node):
                         if device.port == dev.port:
                             self.registers[register] = getOne(self.logger, dev, register)
             driver = 'GV' + str(i+1)
-            if self.registers[register] == 'Not Implemented': self.registers[register] = 0
-            self.set_driver(driver, self.registers[register])
+            if self.registers[register] is not None:
+                if self.registers[register] == 'Not Implemented': self.registers[register] = 0
+                self.set_driver(driver, self.registers[register])
         if DEBUGLEVEL == '2':
             self.logger.debug('%s', self.registers)
         return True
@@ -307,8 +309,9 @@ class SunSpecInverter(Node):
                         if device.port == dev.port:
                             self.registers[register] = getOne(self.logger, dev, register)
             driver = 'GV' + str(i+1)
-            if self.registers[register] == 'Not Implemented': self.registers[register] = 0
-            self.set_driver(driver, self.registers[register])
+            if self.registers[register] is not None:
+                if self.registers[register] == 'Not Implemented': self.registers[register] = 0
+                self.set_driver(driver, self.registers[register])
         if DEBUGLEVEL == '2':
             self.logger.debug('%s', self.registers)
         return True
@@ -416,8 +419,9 @@ class FLEXNet(Node):
                         if device.port == dev.port:
                             self.registers[register] = getOne(self.logger, dev, register)
             driver = 'GV' + str(i+1)
-            if self.registers[register] == 'Not Implemented': self.registers[register] = 0
-            self.set_driver(driver, self.registers[register])
+            if self.registers[register] is not None:
+                if self.registers[register] == 'Not Implemented': self.registers[register] = 0
+                self.set_driver(driver, self.registers[register])
         if DEBUGLEVEL == '2':
             self.logger.debug('%s', self.registers)
 
@@ -530,8 +534,9 @@ class FXInverter(Node):
                         if device.port == dev.port:
                             self.registers[register] = getOne(self.logger, dev, register)
             driver = 'GV' + str(i+1)
-            if self.registers[register] == 'Not Implemented': self.registers[register] = 0
-            self.set_driver(driver, self.registers[register])
+            if self.registers[register] is not None:
+                if self.registers[register] == 'Not Implemented': self.registers[register] = 0
+                self.set_driver(driver, self.registers[register])
         if DEBUGLEVEL == '2':
             self.logger.debug('%s', self.registers)
         return True
@@ -666,8 +671,9 @@ class OutbackNode(Node):
                 if dev.type == devtype:
                         self.registers[register] = getOne(self.logger, dev, register)
             driver = 'GV' + str(i+1)
-            if self.registers[register] == 'Not Implemented': self.registers[register] = 0
-            self.set_driver(driver, myfloat(self.registers[register]))
+            if self.registers[register] is not None:
+                if self.registers[register] == 'Not Implemented': self.registers[register] = 0
+                self.set_driver(driver, myfloat(self.registers[register]))
         if DEBUGLEVEL == '2':
             self.logger.debug('%s', self.registers)
         return True
