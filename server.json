@@ -9,8 +9,8 @@
         {
             "title": "OutBack Inverter: A Python library for OutBack SunSpec Devices",
             "author": "James Milne (Einstein.42)",
-            "version": "0.1.1",
-            "date": "April 8th, 2016",
+            "version": "0.1.2",
+            "date": "July 2nd, 2016",
             "source": "https://github.com/Einstein42/outback-inverter",
             "license": ""
         }

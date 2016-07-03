@@ -6,7 +6,7 @@
 from polyglot.nodeserver_api import SimpleNodeServer, PolyglotConnector
 from outback_types import OutbackNode
 
-VERSION = "0.1.1"
+VERSION = "0.1.2"
 
 
 class OutbackNodeServer(SimpleNodeServer):
@@ -30,8 +30,32 @@ class OutbackNodeServer(SimpleNodeServer):
         pass
 
     def long_poll(self):
-        pass
-        
+        if self.controller is not None:
+            self.controller.update_info()
+        if self.inverter_master is not None:
+            self.inverter_master.update_info()
+        if len(self.inverter_slaves) >= 1:
+            for i in self.inverter_slaves:
+                i.update_info()
+        if self.sunspec is not None:
+            self.sunspec.update_info()
+        if self.flexnet is not None:
+            self.flexnet.update_info()
+
+    def report_drivers(self):
+        if self.controller is not None:
+            self.controller.report_driver()
+        if self.inverter_master is not None:
+            self.inverter_master.report_driver()
+        if len(self.inverter_slaves) >= 1:
+            for i in self.inverter_slaves:
+                i.report_driver()
+        if self.sunspec is not None:
+            self.sunspec.report_driver()
+        if self.flexnet is not None:
+            self.flexnet.report_driver()
+
+    
 def main():
     """Setup connection, node server, and nodes"""
     poly = PolyglotConnector()

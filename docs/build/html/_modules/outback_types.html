@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>outback_types &mdash; OutBack-Inverter 0.1.1 documentation</title>
+  <title>outback_types &mdash; OutBack-Inverter 0.1.2 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="OutBack-Inverter 0.1.1 documentation" href="../index.html"/>
+    <link rel="top" title="OutBack-Inverter 0.1.2 documentation" href="../index.html"/>
         <link rel="up" title="Module code" href="index.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                0.1.1
+                0.1.2
               </div>
             
           
@@ -82,6 +82,7 @@
             
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
 </ul>
 
             
@@ -232,6 +233,7 @@
         <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">openConnection</span><span class="p">()):</span>  
             <span class="bp">self</span><span class="o">.</span><span class="n">getRegisters</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">closeConnection</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">report_driver</span><span class="p">()</span>
         <span class="k">return</span> <span class="bp">True</span>
 
     <span class="n">_drivers</span> <span class="o">=</span> <span class="p">{</span>
@@ -348,6 +350,7 @@
         <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">openConnection</span><span class="p">()):</span>  
             <span class="bp">self</span><span class="o">.</span><span class="n">getRegisters</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">closeConnection</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">report_driver</span><span class="p">()</span>
         <span class="k">return</span> <span class="bp">True</span>
 
     <span class="n">_drivers</span> <span class="o">=</span> <span class="p">{</span>
@@ -456,6 +459,7 @@
         <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">openConnection</span><span class="p">()):</span>  
             <span class="bp">self</span><span class="o">.</span><span class="n">getRegisters</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">closeConnection</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">report_driver</span><span class="p">()</span>
         <span class="k">return</span> <span class="bp">True</span>
 
     <span class="n">_drivers</span> <span class="o">=</span> <span class="p">{</span>
@@ -555,6 +559,7 @@
         <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">openConnection</span><span class="p">()):</span>  
             <span class="bp">self</span><span class="o">.</span><span class="n">getRegisters</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">closeConnection</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">report_driver</span><span class="p">()</span>
         <span class="k">return</span> <span class="bp">True</span>
 
     <span class="n">_drivers</span> <span class="o">=</span> <span class="p">{</span>
@@ -659,6 +664,7 @@
         <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">openConnection</span><span class="p">()):</span>  
             <span class="bp">self</span><span class="o">.</span><span class="n">getRegisters</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">closeConnection</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">report_driver</span><span class="p">()</span>
         <span class="k">return</span> <span class="bp">True</span>
 
     <span class="n">_drivers</span> <span class="o">=</span> <span class="p">{</span>
@@ -732,7 +738,6 @@
             <span class="nb">super</span><span class="p">(</span><span class="n">OutbackNode</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">primary</span><span class="p">,</span> <span class="n">manifest</span><span class="p">)</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">getRegisters</span><span class="p">():</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Failed to get registers for </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-        <span class="n">C</span><span class="o">.</span><span class="n">write_single_register</span><span class="p">(</span><span class="mi">40082</span><span class="p">,</span> <span class="mi">65535</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">getRegisters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -828,6 +833,7 @@
 <span class="sd">        Get updated values for the registers</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">update_info</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">report_driver</span><span class="p">()</span>
         <span class="k">return</span> <span class="bp">True</span>
 
     <span class="k">class</span> <span class="nc">SunSpecDevice</span><span class="p">:</span>
@@ -1210,7 +1216,7 @@
                 <span class="c1">#logger.info(register_name + &#39;(&#39; + str(address) + &#39;): &#39; + str(register_type) + &#39; : &#39; + str(value))</span>
                 <span class="k">return</span> <span class="bp">True</span>
     <span class="k">except</span> <span class="ne">TypeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;getOne ERROR: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;setOne ERROR: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="getOne"><a class="viewcode-back" href="../methods.html#outback_types.getOne">[docs]</a><span class="k">def</span> <span class="nf">getOne</span><span class="p">(</span><span class="n">logger</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">regname</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -1302,7 +1308,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.1.1',
+            VERSION:'0.1.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

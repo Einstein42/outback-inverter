@@ -9,6 +9,9 @@ import struct
 from outback_defs import *
 from pyModbusTCP.client import ModbusClient
 
+# 1 for Normal/Info 2 for Debug
+DEBUGLEVEL = '1'
+
 class GSInverter(Node):
     """
     Instantiate a GSInverter Type Node.
@@ -63,8 +66,8 @@ class GSInverter(Node):
             driver = 'GV' + str(i+1)
             if self.registers[register] == 'Not Implemented': self.registers[register] = 0
             self.set_driver(driver, self.registers[register])
-
-        self.logger.info('%s', self.registers)
+        if DEBUGLEVEL == '2':
+            self.logger.debug('%s', self.registers)
         return True
 
     def setRegister(self, **kwargs):
@@ -96,13 +99,22 @@ class GSInverter(Node):
         self.controller.closeConnection()
         return True
 
+    def update_info(self):
+        """
+        Update all the registers (runs on long_poll)
+        """
+        time.sleep(1)
+        if (self.parent.controller.openConnection()):  
+            self.getRegisters(self.device)
+        self.parent.controller.closeConnection()
+        return
+
     def query(self, **kwargs):
         """
         Get updated values for the registers
         """
-        if (self.controller.openConnection()):  
-            self.getRegisters(self.device)
-        self.controller.closeConnection()
+        self.update_info()
+        self.report_driver()
         return True
 
     _drivers = {
@@ -179,8 +191,8 @@ class GSSingleInverter(Node):
             driver = 'GV' + str(i+1)
             if self.registers[register] == 'Not Implemented': self.registers[register] = 0
             self.set_driver(driver, self.registers[register])
-
-        self.logger.info('%s', self.registers)
+        if DEBUGLEVEL == '2':
+            self.logger.debug('%s', self.registers)
         return True
 
     def setRegister(self, **kwargs):
@@ -212,13 +224,22 @@ class GSSingleInverter(Node):
         self.controller.closeConnection()
         return True
 
+    def update_info(self):
+        """
+        Update all the registers (runs on long_poll)
+        """
+        time.sleep(1)
+        if (self.parent.controller.openConnection()):  
+            self.getRegisters(self.device)
+        self.parent.controller.closeConnection()
+        return
+
     def query(self, **kwargs):
         """
         Get updated values for the registers
         """
-        if (self.controller.openConnection()):  
-            self.getRegisters(self.device)
-        self.controller.closeConnection()
+        self.update_info()
+        self.report_driver()
         return True
 
     _drivers = {
@@ -288,7 +309,8 @@ class SunSpecInverter(Node):
             driver = 'GV' + str(i+1)
             if self.registers[register] == 'Not Implemented': self.registers[register] = 0
             self.set_driver(driver, self.registers[register])
-        self.logger.info('%s', self.registers)
+        if DEBUGLEVEL == '2':
+            self.logger.debug('%s', self.registers)
         return True
 
     def setRegister(self, **kwargs):
@@ -320,13 +342,22 @@ class SunSpecInverter(Node):
         self.controller.closeConnection()
         return True
 
+    def update_info(self):
+        """
+        Update all the registers (runs on long_poll)
+        """
+        time.sleep(1)
+        if (self.parent.controller.openConnection()):  
+            self.getRegisters(self.device)
+        self.parent.controller.closeConnection()
+        return
+
     def query(self, **kwargs):
         """
         Get updated values for the registers
         """
-        if (self.controller.openConnection()):  
-            self.getRegisters(self.device)
-        self.controller.closeConnection()
+        self.update_info()
+        self.report_driver()
         return True
 
     _drivers = {
@@ -387,7 +418,9 @@ class FLEXNet(Node):
             driver = 'GV' + str(i+1)
             if self.registers[register] == 'Not Implemented': self.registers[register] = 0
             self.set_driver(driver, self.registers[register])
-        self.logger.info('%s', self.registers)
+        if DEBUGLEVEL == '2':
+            self.logger.debug('%s', self.registers)
+
         return True
 
     def setRegister(self, **kwargs):
@@ -419,13 +452,22 @@ class FLEXNet(Node):
         self.controller.closeConnection()
         return True
 
+    def update_info(self):
+        """
+        Update all the registers (runs on long_poll)
+        """
+        time.sleep(1)
+        if (self.parent.controller.openConnection()):  
+            self.getRegisters(self.device)
+        self.parent.controller.closeConnection()
+        return
+
     def query(self, **kwargs):
         """
         Get updated values for the registers
         """
-        if (self.controller.openConnection()):  
-            self.getRegisters(self.device)
-        self.controller.closeConnection()
+        self.update_info()
+        self.report_driver()
         return True
 
     _drivers = {
@@ -490,8 +532,8 @@ class FXInverter(Node):
             driver = 'GV' + str(i+1)
             if self.registers[register] == 'Not Implemented': self.registers[register] = 0
             self.set_driver(driver, self.registers[register])
-
-        self.logger.info('%s', self.registers)
+        if DEBUGLEVEL == '2':
+            self.logger.debug('%s', self.registers)
         return True
 
     def setRegister(self, **kwargs):
@@ -523,13 +565,22 @@ class FXInverter(Node):
         self.controller.closeConnection()
         return True
 
+    def update_info(self):
+        """
+        Update all the registers (runs on long_poll)
+        """
+        time.sleep(1)
+        if (self.parent.controller.openConnection()):  
+            self.getRegisters(self.device)
+        self.parent.controller.closeConnection()
+        return
+
     def query(self, **kwargs):
         """
         Get updated values for the registers
         """
-        if (self.controller.openConnection()):  
-            self.getRegisters(self.device)
-        self.controller.closeConnection()
+        self.update_info()
+        self.report_driver()
         return True
 
     _drivers = {
@@ -602,8 +653,7 @@ class OutbackNode(Node):
             # Create OutBack System Controller Node in ISY
             super(OutbackNode, self).__init__(parent, self.address, self.name, primary, manifest)
             if not self.getRegisters():
-                self.logging.error('Failed to get registers for %s', self.name)
-        C.write_single_register(40082, 65535)
+                self.logger.error('Failed to get registers for %s', self.name)
 
     def getRegisters(self):
         """
@@ -618,8 +668,8 @@ class OutbackNode(Node):
             driver = 'GV' + str(i+1)
             if self.registers[register] == 'Not Implemented': self.registers[register] = 0
             self.set_driver(driver, myfloat(self.registers[register]))
-
-        self.logger.info('%s', self.registers)
+        if DEBUGLEVEL == '2':
+            self.logger.debug('%s', self.registers)
         return True
 
     def getSerial(self):
@@ -649,7 +699,7 @@ class OutbackNode(Node):
                         if device.mode in [0,4,10,19]:
                             #self.logger.info('get_node: %s', self.parent.get_node[self.address])
                             name = DEPLOYMENTTYPE + ' Inverter - Master - Port ' + str(device.port)
-                            self.parent.master_inverter = FXInverter(self.parent, controller, address, device, name, manifest)
+                            self.parent.inverter_master = FXInverter(self.parent, controller, address, device, name, manifest)
                         else:
                             name = DEPLOYMENTTYPE + ' Inverter - Slave - Port ' + str(device.port)
                             self.parent.inverter_slaves.append(FXInverter(self.parent, controller, address, device, name, manifest))
@@ -662,9 +712,9 @@ class OutbackNode(Node):
                             #self.logger.info('get_node: %s', self.parent.get_node[self.address])
                             name = DEPLOYMENTTYPE + ' Inverter - Master - Port ' + str(device.port)
                             if DEPLOYMENTPHASE == 'Single':
-                                self.parent.master_inverter = GSSingleInverter(self.parent, controller, address, device, name, manifest)
+                                self.parent.inverter_master = GSSingleInverter(self.parent, controller, address, device, name, manifest)
                             else:
-                                self.parent.master_inverter = GSInverter(self.parent, controller, address, device, name, manifest)
+                                self.parent.inverter_master = GSInverter(self.parent, controller, address, device, name, manifest)
                         else:
                             name = DEPLOYMENTTYPE + ' Inverter - Slave - Port ' + str(device.port)
                             if DEPLOYMENTPHASE == 'Single':
@@ -686,9 +736,9 @@ class OutbackNode(Node):
                     
     def update_info(self):
         """
-        Update all the registers (runs on short_poll)
+        Update all the registers (runs on long_poll)
         """
-        self.logger.info('OutBackNode update_info')
+        time.sleep(1)
         if (self.openConnection()):  
             self.getRegisters()
         self.closeConnection()
@@ -698,7 +748,12 @@ class OutbackNode(Node):
         """
         Get updated values for the registers
         """
-        self.update_info()
+        self.logger.info('Query for all registers and report.')
+        self.parent.long_poll()
+        self.parent.report_drivers()
+        # Wait a few seconds and do it again. The ISY has a bad habit of missing some updates
+        time.sleep(10)
+        self.parent.report_drivers()
         return True
 
     class SunSpecDevice:
@@ -803,16 +858,17 @@ class OutbackNode(Node):
         except:
             self.logger.info('Trying Encrypted')
         # Try Encrypted
-        self.getEncryptionKey()
-        register = C.read_holding_registers(40000, 3)        
-        register[1] = DECRYPT(ENCRYPTIONKEY,register[1])
-        sunSpecId = '0x{0:08X}'.format((register[0] << 16) | register[1])
-        self.logger.info('ID: %s', sunSpecId)
-        if sunSpecId == SUNSPECID: 
-            global ENCRYPTED
-            ENCRYPTED = True
-            return True
-        self.logger.info('Invalid register for SunSpec device type. 40000 should return 32-bit hex value of 0x53756E53')
+        if self.getEncryptionKey():
+            register = C.read_holding_registers(40000, 3)        
+            register[1] = DECRYPT(ENCRYPTIONKEY,register[1])
+            sunSpecId = '0x{0:08X}'.format((register[0] << 16) | register[1])
+            # For testing
+            # self.logger.info('ID: %s', sunSpecId)
+            if sunSpecId == SUNSPECID: 
+                global ENCRYPTED
+                ENCRYPTED = True
+                return True
+            self.logger.info('Invalid register for SunSpec device type. 40000 should return 32-bit hex value of 0x53756E53')
         return False
 
     def openConnection(self):
@@ -834,8 +890,14 @@ class OutbackNode(Node):
             
     def getEncryptionKey(self):
         global ENCRYPTIONKEY
-        ENCRYPTIONKEY = C.read_holding_registers(40076, 1)[0]
-        self.logger.info('Encryption Key Found: %i', ENCRYPTIONKEY)
+        try:
+            ENCRYPTIONKEY = C.read_holding_registers(40076, 1)[0]
+            if DEBUGLEVEL == '2':
+                self.logger.debug('Encryption Key Found: %i', ENCRYPTIONKEY)
+            return True
+        except TypeError as e:
+            self.logger.error('Failed to get Encryption Key, connection failed')
+            return False
 
     def closeConnection(self):
         """
@@ -1081,7 +1143,7 @@ def setOne(logger, device, regname, value):
                 #logger.info(register_name + '(' + str(address) + '): ' + str(register_type) + ' : ' + str(value))
                 return True
     except TypeError as e:
-        logger.error('getOne ERROR: %s', e)
+        logger.error('setOne ERROR: %s', e)
 
 def getOne(logger, device, regname):
     """
@@ -1102,7 +1164,7 @@ def getOne(logger, device, regname):
                 register_name = SUNSPEC_DEVICE_MAP[device.type][i][7]
                 value = checkRegister(register, register_type, register_valType, register_name)
                 # TODO: comment out before release
-                logger.info(register_name + '(' + str(address) + '): ' + str(register_type) + ' : ' + str(value))
+                # logger.info(register_name + '(' + str(address) + '): ' + str(register_type) + ' : ' + str(value))
                 return value
     except TypeError as e:
         logger.error('getOne ERROR: %s', e)

@@ -24,3 +24,4 @@ Licensed to Universal Devices
    :maxdepth: 2
 
    usage
+   changelog
