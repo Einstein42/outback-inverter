@@ -10,7 +10,7 @@ from outback_defs import *
 from pyModbusTCP.client import ModbusClient
 
 # 1 for Normal/Info 2 for Debug
-DEBUGLEVEL = '1'
+DEBUGLEVEL = '2'
 
 class GSInverter(Node):
     """
