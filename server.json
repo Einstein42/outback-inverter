@@ -1,5 +1,5 @@
 {
-    "name": "OutBack Inverter",
+    "name": "OutBack",
     "docs": "",
     "type": "python",
     "executable": "outback_inverter.py",
